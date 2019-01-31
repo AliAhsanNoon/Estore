@@ -1,0 +1,15 @@
+﻿@model com.Entities.Category
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Categories</h2>
+
+<form method="post">
+
+    <input type="text" value="@Model.Name" name="Name" class="form-control" />
+    <input type="text" value="@Model.Description" name="Description" class="form-control" />
+    <input type="hidden" value="@Model.ID" />
+    <button type="submit" class="btn btn-success glyphicon glyphicon-ok"></button>
+</form>
+

@@ -12,7 +12,7 @@ namespace com.services
     {
         CContext context = new CContext();
 
-        public List<Category> GetProducts()
+        public List<Category> GetCategories()
         {
             return context.Categories.ToList();
         }
@@ -32,6 +32,22 @@ namespace com.services
                 context.Categories.Add(category);
                 context.SaveChanges();
             }
+        }
+
+        public void updateCategory(Category category)
+        {
+            using (context)
+            {
+                context.Entry(category).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            var catId = context.Categories.Single(x => x.ID == id);
+            context.Entry(catId).State = System.Data.Entity.EntityState.Deleted;
+            context.SaveChanges();
         }
     }
 }
