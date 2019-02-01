@@ -1,4 +1,6 @@
-﻿using com.services;
+﻿using com.Entities;
+using com.services;
+using com.web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,26 +12,39 @@ namespace com.web.Controllers
     public class ProductController : Controller
     {
         ProductService productService = new ProductService();
+        CategoryService category = new CategoryService();
         // GET: Product
         public ActionResult Index()
         {
-            return View(productService.GetProducts());
+            return PartialView();
         }
 
         // GET: Product/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            //var selectCategory = category.GetCategories();
+            //var newViewModel = new ProductViewModels {
+            //    Categories = selectCategory,
+            //    Product = new Product()
+            //};
+
+            return View(category.GetCategories());
         }
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProductViewModels viewModel)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                var pModel = new Product();
+                pModel.Name = viewModel.Name;
+                pModel.Description = viewModel.Description;
+                pModel.Price = viewModel.Price;
+                pModel.Category = category.Edit(viewModel.Category_ID);
+                productService.SaveProducts(pModel);
                 return RedirectToAction("Index");
             }
             catch
@@ -80,6 +95,11 @@ namespace com.web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult ProductTable()
+        {
+            return View(productService.GetProducts());
         }
     }
 }
