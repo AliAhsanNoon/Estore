@@ -54,9 +54,11 @@ namespace com.web.Controllers
         }
 
         // GET: Product/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            var editModel = productService.GetProduct(id);
+            return View(editModel);
         }
 
         // POST: Product/Edit/5
@@ -76,19 +78,20 @@ namespace com.web.Controllers
         }
 
         // GET: Product/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(productService.GetProduct(id));
         }
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Product product)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                productService.DeleteProducts(product.ID);
                 return RedirectToAction("Index");
             }
             catch

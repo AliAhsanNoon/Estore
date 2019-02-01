@@ -1,0 +1,21 @@
+﻿@model com.Entities.Product
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Product Information</h2>
+
+<form method="post">
+
+    <input type="text" value="@Model.Name" name="Name" class="form-control" />
+    <input type="text" value="@Model.Description" name="Description" class="form-control" />
+    <input type="text" value="@Model.Price" name="Name" class="form-control" />
+    <select class="form-control" name="Category_ID">
+        <option value="SelectCategory">SelectCategory</option>
+       
+            <option value="@Model.Category.ID">@Model.Name</option>
+        
+    </select>
+    <input type="hidden" value="@Model.ID" />
+    <button type="submit" class="btn btn-success glyphicon glyphicon-ok"></button>
+</form>

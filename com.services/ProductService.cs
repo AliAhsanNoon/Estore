@@ -20,13 +20,22 @@ namespace com.services
         {
             return context.Products.ToList().SingleOrDefault(x => x.ID == id);
         }
+
         public void SaveProducts(Product product)
         {
             using (context)
             {
+                context.Entry(product).State = EntityState.Unchanged;
                 context.Products.Add(product);
                 context.SaveChanges();
             }
+        }
+
+        public void DeleteProducts(int ID)
+        {
+            var pID = context.Products.Single(p => p.ID == ID);
+            context.Products.Remove(pID);
+            context.SaveChanges();
         }
     }
 }

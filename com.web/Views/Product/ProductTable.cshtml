@@ -32,6 +32,7 @@
                 }
             </td>
             <td>
+                @Html.ActionLink(" ", "cart", "Product", null, new { @class = "btn btn-warning glyphicon glyphicon-shopping-cart" })
                 @Html.ActionLink(" ", "Edit", "Product", new { id = product.ID }, new { @class = " btn btn-sm btn-info glyphicon glyphicon-pencil" })
                 @Html.ActionLink(" ", "Delete", "Product", new { id = product.ID }, new { @class = " btn btn-sm btn-danger glyphicon glyphicon-trash" })
             </td>
