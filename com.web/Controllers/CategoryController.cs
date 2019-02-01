@@ -12,13 +12,8 @@ namespace com.web.Controllers
     {
         CategoryService categoryService = new CategoryService();
         // GET: Category
+        [HttpGet]
         public ActionResult Index()
-        {
-            return View(categoryService.GetCategories());
-        }
-
-        // GET: Category/Details/5
-        public ActionResult Details(int id)
         {
             return View();
         }
@@ -26,7 +21,7 @@ namespace com.web.Controllers
         // GET: Category/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Category/Create
@@ -48,7 +43,7 @@ namespace com.web.Controllers
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(categoryService.Edit(id));
+            return PartialView(categoryService.Edit(id));
         }
 
         // POST: Category/Edit/5
@@ -87,6 +82,11 @@ namespace com.web.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult CategoryTable()
+        {
+            return View(categoryService.GetCategories());
         }
     }
 }

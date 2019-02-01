@@ -1,0 +1,49 @@
+﻿@model List<com.Entities.Category>
+@{
+    /**/
+
+    ViewBag.Title = "CategoryTable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CategoryTable</h2>
+
+<button type="button" id="addNew" class = "btn btn-sm glyphicon glyphicon-plus"></button>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var cat in Model)
+    {
+        <tr>
+            <td>@cat.Name</td>
+            <td>@cat.Description</td>
+            <td>
+                <button data-id="@cat.ID" id="_editBtn" type="button" class=" btn btn-sm btn-info glyphicon glyphicon-pencil"></button>
+                <button data-id="@cat.ID" id="_deleteBtn" type="button" class="btn btn-sm btn-danger glyphicon glyphicon-trash"></button>
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts{
+<script type="text/javascript">
+    $("#addNew").click(function () {
+        $.ajax({
+            url: 'Category/Create',
+        }).done(function (response) { $("#actionContainer").html(response); })
+            .fail(function (XMLHttpRequest, txtStatus, errorThrown) { alert('Fail') });
+    });
+    $("#_editBtn").click(function () {
+        $.ajax({
+            url: 'Category/Edit',
+            data: { ID: $(this).attr('data-id') }
+        }).done(function (response) { $("#actionContainer").html(response); })
+            .fail(function (XMLHttpRequest, txtStatus, errorThrown) { alert('Fail') });
+    });
+</script>
+}
+

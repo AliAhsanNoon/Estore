@@ -5,11 +5,27 @@
 
 <h2>Edit Categories</h2>
 
-<form method="post">
+<form id="editCatForm">
 
     <input type="text" value="@Model.Name" name="Name" class="form-control" />
     <input type="text" value="@Model.Description" name="Description" class="form-control" />
     <input type="hidden" value="@Model.ID" />
-    <button type="submit" class="btn btn-success glyphicon glyphicon-ok"></button>
+    <button type="button" id="updateCat" class="btn btn-success glyphicon glyphicon-ok"></button>
 </form>
 
+@section Scripts{
+    <script type="text/javascript">
+        $("#updateCat").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Category/Edit',
+                data: $("#editCatForm").serialize()
+            })
+                .done(function (res) {
+                    $("#tableContainer").html(res);
+                    $("#actionContainer").html("");
+                })
+            .fail(function (XMLHttpRequest, txtStatus, errorThrown) { alert('Fail') })
+            });
+    </script>
+}

@@ -1,26 +1,8 @@
-﻿@model List<com.Entities.Category>
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>Categories</h2>
-
-@Html.ActionLink(" ", "Create", null, new { @class=" btn btn-sm glyphicon glyphicon-plus"})
-
-<table class="table table-striped">
-    <tr>
-        <th>Name</th><th>Description</th><th>Actions</th>
-    </tr>
-    @foreach(var cat in Model)
-    {
-        <tr>
-            <td>@cat.Name</td>
-            <td>@cat.Description</td>
-            <td>
-                @Html.ActionLink(" ", "Edit", new { id = cat.ID }, new { @class = " btn btn-sm btn-info glyphicon glyphicon-pencil" })
-                @Html.ActionLink(" ", "Delete", new { id = cat.ID }, new { @class = " btn btn-sm btn-danger glyphicon glyphicon-trash" })
-            </td>
-        </tr>
-    }
-</table>
-
+<div class="container">
+    <div id="tableContainer">@{ Html.RenderAction("CategoryTable");}</div>
+    <div id="actionContainer"></div>
+</div>
