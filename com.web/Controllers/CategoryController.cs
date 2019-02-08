@@ -10,73 +10,22 @@ namespace com.web.Controllers
 {
     public class CategoryController : Controller
     {
+        private readonly bool success = true;
         CategoryService categoryService = new CategoryService();
-        // GET: Category
+        
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Category/Create
-        public ActionResult Create()
-        {
-            return PartialView();
-        }
-
-        // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(Category collection)
-        {
-            try
-            {
-                categoryService.SaveCategory(collection);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Category/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return PartialView(categoryService.Edit(id));
-        }
-
-        // POST: Category/Edit/5
-        [HttpPost]
-        public ActionResult Edit(Category collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-                categoryService.updateCategory(collection);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(categoryService.Edit(id));
-        }
-
-        // POST: Category/Delete/5
-        [HttpPost]
-        public ActionResult Delete(Category collection)
-        {
             try
             {
-                // TODO: Add delete logic here
-                categoryService.Delete(collection.ID);
-                return RedirectToAction("Index");
+                categoryService.Delete(id);
+                return Json(new { success }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -86,7 +35,30 @@ namespace com.web.Controllers
 
         public ActionResult CategoryTable()
         {
-            return View(categoryService.GetCategories());
+            var cat = categoryService.GetCategories();
+            return Json(new { data = cat}, JsonRequestBehavior.AllowGet); 
         }
+
+        [HttpGet]
+        public ActionResult CreateOrUpdate(int id=0 )
+        {
+            var c = categoryService.Edit(id);
+            return View(c);
+        }
+        [HttpPost]
+        public ActionResult CreateOrUpdate(Category category)
+        {
+            if(category.ID == 0)
+            {
+                categoryService.SaveCategory(category);
+                return Json(new { success }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                categoryService.updateCategory(category);
+                return Json(new { success  }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

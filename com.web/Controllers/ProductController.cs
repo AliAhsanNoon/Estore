@@ -16,7 +16,7 @@ namespace com.web.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return PartialView();
+            return View();
         }
 
         // GET: Product/Create
@@ -102,7 +102,7 @@ namespace com.web.Controllers
 
         public ActionResult ProductTable()
         {
-            return View(productService.GetProducts());
+            return PartialView(productService.GetProducts());
         }
     }
 }
