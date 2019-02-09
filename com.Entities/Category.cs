@@ -8,5 +8,6 @@ namespace com.Entities
 {
     public class Category : BaseEntity
     {
+        public bool isFeatured { get; set; }
     }
 }
