@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "CategoryTable";
 }
-
-<h2>CategoryTable</h2>
+<br />
+<p class=" lead text-muted"> Category Management Section</p>
 
 <button type="button"
         onclick="PopupForm('@Url.Action("CreateOrUpdate","Category")')"
@@ -15,6 +15,7 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>IsFeatured</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -32,6 +33,13 @@
         "columns": [
             { "data": "Name" }, { "data": "Description" },
             {
+                "data": "isFeatured",
+                "render": function (data) {
+                    return "<input type='checkbox' name='isFeatured'  value="+data+" disabled>";
+                }
+                    
+            },
+            {
                 "data": "ID",
                 "render": function (data) {
                     return "<a style='margin-left:25px;' class='btn btn-warning glyphicon glyphicon-pencil'  onclick=PopupForm('@Url.Action("CreateOrUpdate","Category")/"+ data +"')   ></a> <a class='btn btn-danger glyphicon glyphicon-trash' onclick=Delete(" + data + ") ></a> ";
@@ -48,8 +56,8 @@
                 autoOpen: true,
                 resizable: false,
                 title: 'Fill Category Details',
-                height: 255,
-                width: 280,
+                height: 325,
+                width: 340,
                 show: {
                     effect: "drop",
                     duration: 500

@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 <br /><br />
-<p class="text-center lead text-muted">Product Details</p>
+<p class="lead text-muted">Product Management Section</p>
 <button type="button"
         onclick="PopupForm('@Url.Action("CreateOrUpdate","Product")')"
         class="btn btn-success glyphicon glyphicon-plus"></button>
@@ -52,7 +52,7 @@
                     autoOpen: true,
                     resizable: false,
                     title: 'Fill Product Details',
-                    height: 380,
+                    height: 425,
                     width: 330,
                     show: {
                         effect: "drop",
