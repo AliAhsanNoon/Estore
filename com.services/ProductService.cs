@@ -18,7 +18,7 @@ namespace com.services
 
         public Product GetProduct(int id)
         {
-            return context.Products.ToList().SingleOrDefault(x => x.ID == id);
+            return context.Products.Include(x=> x.Category).SingleOrDefault(x => x.ID == id);
         }
 
         public void SaveProducts(Product product)
@@ -31,10 +31,20 @@ namespace com.services
             }
         }
 
+        public void UpdateProducts(Product product)
+        {
+            using (context)
+            {
+                context.Entry(product).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
         public void DeleteProducts(int ID)
         {
-            var pID = context.Products.Single(p => p.ID == ID);
-            context.Products.Remove(pID);
+           // var pID = context.Products.Single(p => p.ID == ID);
+            var product = context.Products.Where(p => p.ID.Equals(ID)).SingleOrDefault();
+            context.Products.Remove(product);
             context.SaveChanges();
         }
     }

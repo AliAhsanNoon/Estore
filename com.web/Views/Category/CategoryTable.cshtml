@@ -34,19 +34,6 @@
 
 @section Scripts{
     <script type="text/javascript">
-    $("#addNew").click(function () {
-        $.ajax({
-            url: 'Category/Create',
-        }).done(function (response) { $("#actionContainer").html(response); })
-            .fail(function (XMLHttpRequest, txtStatus, errorThrown) { alert('Fail') });
-    });
-    $("._editBtn").click(function () {
-        $.ajax({
-            url: 'Category/Edit',
-            type: 'GET',
-            data: { ID: $(this).attr('data-id') }
-        }).done(function (response) { $("#actionContainer").html(response); })
-            .fail(function (XMLHttpRequest, txtStatus, errorThrown) { alert('Fail') });
-    });
+ 
     </script>
 }

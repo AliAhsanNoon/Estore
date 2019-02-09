@@ -1,21 +1,37 @@
 ﻿@model com.Entities.Product
+
 @{
     ViewBag.Title = "Edit";
+    Layout = null;
 }
 
-<h2>Update Product Information</h2>
+@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { onsubmit = "return UpdateForm(this)" }))
+ {
+    @Html.HiddenFor(m => m.ID)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
 
-<form method="post">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+        @Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
 
-    <input type="text" value="@Model.Name" name="Name" class="form-control" />
-    <input type="text" value="@Model.Description" name="Description" class="form-control" />
-    <input type="text" value="@Model.Price" name="Name" class="form-control" />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+        @Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
     <select class="form-control" name="Category_ID">
-        <option value="SelectCategory">SelectCategory</option>
-       
-            <option value="@Model.Category.ID">@Model.Name</option>
-        
+        <option value="@Model.Category.ID">
+            @if (@Model.Category != null)
+            {
+                @Model.Category.Name
+            }
+            else { <text>-</text>}
+        </option>
     </select>
-    <input type="hidden" value="@Model.ID" />
-    <button type="submit" class="btn btn-success glyphicon glyphicon-ok"></button>
-</form>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+ }

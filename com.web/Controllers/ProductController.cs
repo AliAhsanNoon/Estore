@@ -11,49 +11,16 @@ namespace com.web.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly bool success = true;
+
         ProductService productService = new ProductService();
         CategoryService category = new CategoryService();
-        // GET: Product
+
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Product/Create
-        [HttpGet]
-        public ActionResult Create()
-        {
-            //var selectCategory = category.GetCategories();
-            //var newViewModel = new ProductViewModels {
-            //    Categories = selectCategory,
-            //    Product = new Product()
-            //};
-
-            return View(category.GetCategories());
-        }
-
-        // POST: Product/Create
-        [HttpPost]
-        public ActionResult Create(ProductViewModels viewModel)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-                var pModel = new Product();
-                pModel.Name = viewModel.Name;
-                pModel.Description = viewModel.Description;
-                pModel.Price = viewModel.Price;
-                pModel.Category = category.Edit(viewModel.Category_ID);
-                productService.SaveProducts(pModel);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Product/Edit/5
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -61,48 +28,47 @@ namespace com.web.Controllers
             return View(editModel);
         }
 
-        // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Product product)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            productService.UpdateProducts(product);
+            return Json(new { success },JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Product/Delete/5
-        [HttpGet]
+        [HttpPost]
         public ActionResult Delete(int id)
         {
-            return View(productService.GetProduct(id));
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(Product product)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                productService.DeleteProducts(product.ID);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var del = productService.GetProduct(id);
+            productService.DeleteProducts(del.ID);
+            return Json(new { success }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ProductTable()
         {
-            return PartialView(productService.GetProducts());
+            var products = productService.GetProducts();
+            return Json(new { data = products }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult CreateOrUpdate(int id = 0)
+        {
+            var editModel = productService.GetProduct(id);
+            var _catList = category.GetCategories();
+            return View("CreateOrUpdate", _catList);
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrUpdate(ProductViewModels viewModel)
+        {
+            var pinDB = new Product();
+
+            pinDB.Name = viewModel.Name;
+            pinDB.Description = viewModel.Description;
+            pinDB.Price = viewModel.Price;
+            pinDB.Category = category.Edit(viewModel.Category_ID);
+            productService.SaveProducts(pinDB);
+            return Json(new { success }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
