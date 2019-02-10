@@ -69,13 +69,16 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult CreateOrUpdate(ProductViewModels viewModel)
         {
+            bool setTrue;
+            if(viewModel.isFeatured) { setTrue = true; }
+            else { setTrue = false; }
             var pinDB = new Product();
 
             pinDB.Name = viewModel.Name;
             pinDB.Description = viewModel.Description;
             pinDB.Price = viewModel.Price;
             pinDB.Category = category.Edit(viewModel.Category_ID);
-            pinDB.isFeatured = viewModel.isFeatured;
+            pinDB.isFeatured = setTrue;//viewModel.isFeatured;
             pinDB.ImageURL = viewModel.ImageURL;
             productService.SaveProducts(pinDB);
             return Json(new { success }, JsonRequestBehavior.AllowGet);

@@ -71,6 +71,7 @@
     }
 
     function SubmitForm(form) {
+        console.log($(form).serialize());
             $.ajax({
                 type: 'POST',
                 url: form.action,
