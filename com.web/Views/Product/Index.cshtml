@@ -35,7 +35,8 @@
               },
               "columns":
               [
-                  { "data": "Name" }, { "data": "Description" }, { "data": "Price" },
+                      { "data": "Name" }, { "data": "Description" },
+                      { "data": "Price", "render": function (data) { return ("$" + data) }},
                   { "data": "Category.Name" },
                   {
                       "data": "ID",
@@ -56,8 +57,8 @@
                  autoOpen: true,
                  resizable: false,
                  title: 'Fill Product Details',
-                 height: 425,
-                 width: 330,
+                 height: 490,
+                 width: 850,
                  show: {
                      effect: "drop",
                      duration: 500
@@ -96,8 +97,8 @@
                     autoOpen: true,
                     resizable: false,
                     title: 'Update Product Details',
-                    height: 380,
-                    width: 330,
+                    height: 490,
+                    width: 850,
                     show: {
                         effect: "drop",
                         duration: 500

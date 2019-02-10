@@ -2,36 +2,102 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = null;
 }
 
-@using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { onsubmit = "return UpdateForm(this)" }))
- {
-    @Html.HiddenFor(m => m.ID)
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
-        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
+<div class="row">
+    @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { onsubmit = "return UpdateForm(this)" }))
+    {
+        <div class="col-md-6">
+            @Html.HiddenFor(m => m.ID)
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Description, new { @class = "control-label" })
-        @Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 3 })
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Price, new { @class = "control-label" })
-        @Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control" } })
-    </div>
-    <select class="form-control" name="Category_ID">
-        <option value="@Model.Category.ID">
-            @if (@Model.Category != null)
-            {
-                @Model.Category.Name
-            }
-            else { <text>-</text>}
-        </option>
-    </select>
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
- }
+            <div class="form-group">
+                @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                @Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <select class="form-control" name="Category_ID">
+                <option value="@Model.Category.ID">
+                    @if (@Model.Category != null)
+                    {
+                        @Model.Category.Name
+                    }
+                    else
+                    { <text>-</text>}
+                </option>
+            </select>
+            <div class="form-group">
+                <input type="file" id="imageUpload" class="form-control" name="Image"  accept=".png, .jpg" />
+                <input name="imageUrl" id="imageUrl" value="@Model.ImageURL" type="hidden" />
+            </div>
+
+            <div class="form-group">
+
+                <div class="checkbox">
+                    <span style="margin-left:20px;" class="text-muted">
+                        @*<input type="checkbox" value="@Model.isFeatured" name="isFeatured" />*@
+                        @Html.CheckBoxFor(m=>m.isFeatured)Is Featured ?
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+        <div class="col-md-6" style="margin-left:-200px;">
+            <div class="card">
+
+                @if (Model.ImageURL != null)
+                 {
+                    <img id="categoryImage" width="400" height="300" src="@Model.ImageURL" class=" img-fluid " />
+                 }
+                else
+                {
+                    <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
+                }
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $('document').ready(function () {
+
+            $("#imageUpload").on('change', function () {
+                var element = this;
+                var formData = new FormData();
+                var totalFiles = element.files.length;
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = element.files[i];
+                    formData.append("Photo", file)
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/Shared/UploadImage',
+                    dataType: 'json',
+                    data: formData,
+                    contentType: false,
+                    processData: false
+                }).done(function (response) {
+                    if (response.Success) {
+                        $("#categoryImage").attr("src", response.ImageURL);
+                        $("#categoryImage").width(400);
+                        $("#categoryImage").height(300);
+                        $("#imageUrl").val(response.ImageURL);
+                    }
+                    console.log(response);
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) { alert('Fail') });
+            });
+        });
+    </script>
+}

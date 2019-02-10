@@ -31,9 +31,15 @@ namespace com.web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(ProductViewModels productVM)
         {
-            productService.UpdateProducts(product);
+            var _product = productService.GetProduct(productVM.ID);
+            _product.ID = productVM.ID;
+            _product.Name = productVM.Name;
+            _product.Description = productVM.Description;
+            _product.isFeatured = productVM.isFeatured;
+            _product.ImageURL = productVM.ImageURL;
+            productService.UpdateProducts(_product);
             return Json(new { success },JsonRequestBehavior.AllowGet);
         }
 
@@ -69,6 +75,8 @@ namespace com.web.Controllers
             pinDB.Description = viewModel.Description;
             pinDB.Price = viewModel.Price;
             pinDB.Category = category.Edit(viewModel.Category_ID);
+            pinDB.isFeatured = viewModel.isFeatured;
+            pinDB.ImageURL = viewModel.ImageURL;
             productService.SaveProducts(pinDB);
             return Json(new { success }, JsonRequestBehavior.AllowGet);
         }

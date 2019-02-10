@@ -1,41 +1,89 @@
 ﻿@model List<com.Entities.Category>
 @{
     ViewBag.Title = "CreateOrUpdate";
-    Layout = null;
 }
-@using (Html.BeginForm("CreateOrUpdate", "Product", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
- {
+<div class="row">
+    @using (Html.BeginForm("CreateOrUpdate", "Product", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+    {
+    <div class="col-md-6">
 
-    <div class="form-group">
-        <label for="Name" class="control-label">Name</label>
-        <input type="text" name="Name" placeholder="Product Name" class="form-control" />
+        <div class="form-group">
+            <label for="Name" class="control-label">Name</label>
+            <input type="text" name="Name" placeholder="Product Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="Price" class="control-label">Price</label>
+            <input type="text" name="Price" placeholder="Product Price" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="Description" class="control-label">Description</label>
+            <textarea rows="3" class="form-control" placeholder="Product Description" name="Description"></textarea>
+        </div>
+
+        <select class="form-control" name="Category_ID">
+            <option value="SelectCategory">SelectCategory</option>
+            @foreach (var item in Model)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        </select>
+        <br />
+        <div class="form-group">
+            <input type="file" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
+            <input name="imageUrl" id="imageUrl" type="hidden" />
+        </div>
+
+        <div class="checkbox">
+            <label class="text-muted">
+                @*<input name="isFeatured" type="radio" /> True
+                <input name="isFeatured" type="radio" /> False*@
+                 <input type="checkbox" name="isFeatured"  class="checkbox" /> Is Featured ?
+            </label>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </div>
 
+        <div class="col-md-6" style="margin-left:-200px;">
+            <div class="card">
+                <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $('document').ready(function () {
 
-    <div class="form-group">
-        <label for="Price" class="control-label">Price</label>
-
-        <input type="text" name="Price" placeholder="Product Price" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="Description" class="control-label">Description</label>
-        <textarea rows="3" class="form-control" placeholder="Product Description" name="Description"></textarea>
-
-    </div>
-    
-    <select class="form-control" name="Category_ID">
-         <option value="SelectCategory">SelectCategory</option>
-             @foreach (var item in Model)
-              {
-                 <option value="@item.ID">@item.Name</option>
-              }
-    </select>
-    <br />
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
- }
-
-
-
+            $("#imageUpload").on('change', function () {
+                var element = this;
+                var formData = new FormData();
+                var totalFiles = element.files.length;
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = element.files[i];
+                    formData.append("Photo", file)
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/Shared/UploadImage',
+                    dataType: 'json',
+                    data: formData,
+                    contentType: false,
+                    processData: false
+                }).done(function (response) {
+                    if (response.Success) {
+                        $("#categoryImage").attr("src", response.ImageURL);
+                        $("#categoryImage").width(400);
+                        $("#categoryImage").height(300);
+                        $("#imageUrl").val(response.ImageURL);
+                    }
+                    console.log(response);
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) { alert('Fail') });
+            });
+        });
+    </script>
+}
