@@ -23,7 +23,7 @@
             <tr>
                 <td>@cat.Name</td>
                 <td>@cat.Description</td>
-                <td>@cat.isFeatured</td>
+                <td><input type="checkbox" name="isFeatured" value="@cat.isFeatured"></td>
                 <td>
                     <button data-id="@cat.ID" type="button" class="_editBtn btn btn-sm btn-info glyphicon glyphicon-pencil"></button>
                     <button data-id="@cat.ID" type="button" class="_deleteBtn btn btn-sm btn-danger glyphicon glyphicon-trash"></button>
@@ -32,9 +32,3 @@
         }
     </tbody>
 </table>
-
-@section Scripts{
-    <script type="text/javascript">
- 
-    </script>
-}

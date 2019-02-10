@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
 }
 <br /><br />
+
 <p class="lead text-muted">Product Management Section</p>
 <button type="button"
         onclick="PopupForm('@Url.Action("CreateOrUpdate","Product")')"
@@ -21,51 +22,54 @@
 </table>
 
 @section Scripts{
-    <script type="text/javascript">
-        var Popup, dataTables;
-        $(document).ready(function () {
-            dataTables = $("#ProductTable").DataTable({
-                "ajax": {
-                    "url": "/Product/ProductTable",
-                    "datatype": "json",
-                    "type": "GET"
-                },
-                "columns": [
-                    { "data": "Name" }, { "data": "Description" }, { "data": "Price" },
-                    { "data": "Category.Name" },
-                    {
-                        "data": "ID",
-                        "render": function (data) {
-                            return "<a style='margin-right:5px;' class='btn btn-sm btn-warning glyphicon glyphicon-shopping-cart'></a>  <button data-id='" + data + "' class='btn btn-sm btn-info glyphicon glyphicon-pencil' onclick=UpdateProduct('@Url.Action("Edit", "Product")/" + data + "')  ></button> <button data-id='" + data + "' onclick='delprod("+data+")' class='btnDel btn btn-sm btn-danger glyphicon glyphicon-trash' ></button>";
-                        }
-                    }
-                ],
-                "language": { "ProductTbale": "No Data Found" }
-            });
-        });
+<script type="text/javascript">
+    var Popup, dataTables;
 
-        function PopupForm(url) {
-            var formDiv = $("<div/>");
-            $.get(url).done(function (response) {
-                formDiv.html(response);
-                Popup = formDiv.dialog({
-                    autoOpen: true,
-                    resizable: false,
-                    title: 'Fill Product Details',
-                    height: 425,
-                    width: 330,
-                    show: {
-                        effect: "drop",
-                        duration: 500
-                    },
-                    close: function () {
-                        Popup.dialog('destroy').remove();
-                    }
-                });
-            });
-        }
+    $(document).ready(function () {
+          dataTables = $("#ProductTable").DataTable({
+              "ajax":
+              {
+                  "url": "/Product/ProductTable",
+                  "datatype": "json",
+                  "type": "GET"
+              },
+              "columns":
+              [
+                  { "data": "Name" }, { "data": "Description" }, { "data": "Price" },
+                  { "data": "Category.Name" },
+                  {
+                      "data": "ID",
+                      "render": function (data) {
+                          return "<a style='margin-right:5px;' class='btn btn-sm btn-warning glyphicon glyphicon-shopping-cart'></a>  <button data-id='" + data + "' class='btn btn-sm btn-info glyphicon glyphicon-pencil' onclick=UpdateProduct('@Url.Action("Edit", "Product")/" + data + "')  ></button> <button data-id='" + data + "' onclick='delprod("+data+")' class='btnDel btn btn-sm btn-danger glyphicon glyphicon-trash' ></button>";
+                      }
+                  }
+              ],
+              "language": { "ProductTbale": "No Data Found" }
+          });
+    });
 
-        function SubmitForm(form) {
+    function PopupForm(url) {
+         var formDiv = $("<div/>");
+         $.get(url).done(function (response) {
+             formDiv.html(response);
+             Popup = formDiv.dialog({
+                 autoOpen: true,
+                 resizable: false,
+                 title: 'Fill Product Details',
+                 height: 425,
+                 width: 330,
+                 show: {
+                     effect: "drop",
+                     duration: 500
+                 },
+                 close: function () {
+                     Popup.dialog('destroy').remove();
+                 }
+             });
+         });
+    }
+
+    function SubmitForm(form) {
             $.ajax({
                 type: 'POST',
                 url: form.action,
@@ -80,7 +84,7 @@
             return false;
         }
 
-        function UpdateProduct(_url) {
+    function UpdateProduct(_url) {
             var formDiv=$("<div/>")
             $.ajax({
                 type: 'GET',
@@ -106,7 +110,7 @@
             }).fail(function (XMLHttpRequest, txtStatus, errorThrown) { alert('Fail') });
         }
 
-        function UpdateForm(form) {
+    function UpdateForm(form) {
             $.ajax({
                 url: form.action,
                 data: $(form).serialize(),
@@ -121,7 +125,7 @@
             return false;
         }
 
-        function delprod(pid) {
+    function delprod(pid) {
             var _id = pid;
             bootbox.confirm('Are you sure you want to delete this product?', function (result) {
                 if (result) {
@@ -136,5 +140,5 @@
                 }
             });
         }
-    </script>
+</script>
 }

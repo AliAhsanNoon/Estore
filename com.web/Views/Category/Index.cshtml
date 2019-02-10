@@ -26,47 +26,48 @@
         var Popup, dataTables;
         dataTables = $("#CategoryTable").DataTable({
             "ajax": {
-            "url": "/Category/CategoryTable",
-            "type": "GET",
-            "datatype": "json"
-        },
-        "columns": [
-            { "data": "Name" }, { "data": "Description" },
-            {
-                "data": "isFeatured",
-                "render": function (data) {
-                    return "<input type='checkbox' name='isFeatured'  value="+data+" disabled>";
-                }
-                    
+                    "url": "/Category/CategoryTable",
+                    "type": "GET",
+                    "datatype": "json"
             },
-            {
-                "data": "ID",
-                "render": function (data) {
-                    return "<a style='margin-left:25px;' class='btn btn-warning glyphicon glyphicon-pencil'  onclick=PopupForm('@Url.Action("CreateOrUpdate","Category")/"+ data +"')   ></a> <a class='btn btn-danger glyphicon glyphicon-trash' onclick=Delete(" + data + ") ></a> ";
+            "columns": [
+                 { "data": "Name" }, { "data": "Description" },
+                 {
+                      "data": "isFeatured",
+                      "render": function (data) {
+                             return "<input type='checkbox' name='isFeatured'  value="+data+" disabled>";
+                      }   
+                    
+                 },
+                {
+                      "data": "ID",
+                      "render": function (data) {
+                           return "<a style='margin-left:25px;' class='btn btn-warning glyphicon glyphicon-pencil'  onclick=PopupForm('@Url.Action("CreateOrUpdate","Category")/"+ data +"')   ></a> <a class='btn btn-danger glyphicon glyphicon-trash' onclick=Delete(" + data + ") ></a> ";
+                      }
                 }
-            }
-        ],
-        "language": {"CategoryTable": "No Data Found"}
+            ],
+            "language": {"CategoryTable": "No Data Found"}
         });
+
         function PopupForm(url) {
         var formDiv = $('<div />');
-        $.get(url).done(function (response) {
-            formDiv.html(response);
-            Popup = formDiv.dialog({
-                autoOpen: true,
-                resizable: false,
-                title: 'Fill Category Details',
-                height: 325,
-                width: 340,
-                show: {
-                    effect: "drop",
-                    duration: 500
-                },
-                close: function () {
-                    Popup.dialog('destroy').remove();
-                }
+            $.get(url).done(function (response) {
+                formDiv.html(response);
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: 'Fill Category Details',
+                    height: 325,
+                    width: 340,
+                    show: {
+                        effect: "drop",
+                        duration: 500
+                    },
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+                });
             });
-        })
         }
 
         function SubmitForm(form) {
