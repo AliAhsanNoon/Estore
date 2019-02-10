@@ -1,11 +1,13 @@
 ﻿using com.Entities;
 using com.services;
 using com.web.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace com.web.Controllers
 {
@@ -43,9 +45,11 @@ namespace com.web.Controllers
             return Json(new { success }, JsonRequestBehavior.AllowGet);
         }
 
+
         public ActionResult ProductTable()
         {
             var products = productService.GetProducts();
+
             return Json(new { data = products }, JsonRequestBehavior.AllowGet);
         }
 

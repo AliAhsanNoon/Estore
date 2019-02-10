@@ -14,6 +14,11 @@ namespace com.web.Controllers
         CategoryService categoryService = new CategoryService();
         
         [HttpGet]
+        public ActionResult UploadImageAJAX()
+        {
+            return View();
+        }
+        [HttpGet]
         public ActionResult Index()
         {
             return View();

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "UploadImageAJAX";
+}
+
+<h2>UploadImageAJAX</h2>
+
+<form method="post">
+
+    <input type="file" class="form-control" name="Image" id="imgUpload" accept=".png, .jpg" />
+    <img id="categoryImage" />
+    <input name="imageurl" id="imageUrl" type="hidden" />
+
+    <input type="submit" value="Submit" />
+
+</form>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $("#imgUpload").change(function () {
+            var element = this;
+            
+            var formData = new FormData();
+            console.log('Init fd', formData);
+            var totalFiles = element.files.length;
+            console.log('TotalFiles', totalFiles);
+            for (var i = 0; i < totalFiles; i++) {
+                var file = element.files[i];
+                formData.append("Photo", file)
+                console.log(formData.append("Photo", file));
+            } console.log(formData);
+            $.ajax({
+                type: 'POST',
+                url:  '/Shared/UploadImage',
+                dataType: 'json',
+                data: formData,
+                contentType: false,
+                processData: false
+            }).done(function (response) {
+                if (response.Success) {
+                    $("#categoryImage").attr("src", response.ImageURL);
+                    $("#imageUrl").val(response.ImageURL);
+                }
+                console.log(response);
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) { alert('Fail') });
+        });
+
+    </script>
+}
