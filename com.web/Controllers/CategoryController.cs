@@ -12,12 +12,7 @@ namespace com.web.Controllers
     {
         private readonly bool success = true;
         CategoryService categoryService = new CategoryService();
-        
-        [HttpGet]
-        public ActionResult UploadImageAJAX()
-        {
-            return View();
-        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -44,6 +39,12 @@ namespace com.web.Controllers
             return Json(new { data = cat}, JsonRequestBehavior.AllowGet); 
         }
 
+        [HttpGet]
+        public ActionResult New()
+        {
+
+            return View();
+        }
         [HttpGet]
         public ActionResult CreateOrUpdate(int id=0 )
         {

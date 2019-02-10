@@ -780,7 +780,7 @@
     <Content Include="Views\Category\CategoryTable.cshtml" />
     <Content Include="Views\Category\CreateOrUpdate.cshtml" />
     <Content Include="Views\Product\CreateOrUpdate.cshtml" />
-    <Content Include="Views\Category\UploadImageAJAX.cshtml" />
+    <Content Include="Views\Category\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

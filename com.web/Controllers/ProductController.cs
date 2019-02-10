@@ -45,7 +45,6 @@ namespace com.web.Controllers
             return Json(new { success }, JsonRequestBehavior.AllowGet);
         }
 
-
         public ActionResult ProductTable()
         {
             var products = productService.GetProducts();

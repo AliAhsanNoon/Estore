@@ -1,10 +1,4 @@
-﻿using com.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace com.web.ViewModels
+﻿namespace com.web.ViewModels
 {
     public class ProductViewModels
     {
@@ -13,5 +7,7 @@ namespace com.web.ViewModels
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int Category_ID { get; set; }
+        public bool isFeatured { get; set; }
+        public string ImageURL { get; set; }
     }
 }

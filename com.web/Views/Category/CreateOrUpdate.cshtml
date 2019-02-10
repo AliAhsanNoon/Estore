@@ -5,7 +5,7 @@
     ViewBag.Title = "Create"; 
 }
 
-    <div class="row" style="margin:10px;">
+<div class="row" style="margin:10px;">
 
         @using (Html.BeginForm("CreateOrUpdate", "Category", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
         {
@@ -42,28 +42,20 @@
 
             <div class="col-md-6" style="margin-left:-200px;">
                 <div class="card">
-                    @if (Model == null)
-                    {
-                        <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
-                    }
 
                     @if (Model.ImageURL != null)
-                    {
-                        <img id="categoryImage" src="@Model.ImageURL" class=" img-fluid " />
-                    }
+                     {
+                        <img id="categoryImage" width="400" height="300" src="@Model.ImageURL" class=" img-fluid " />
+                     }
                     else
                     {
                         <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
                     }
-
-
                 </div>
             </div>
 
          }
-    </div>
-
-
+</div>
 @section Scripts{
     <script type="text/javascript">
         $('document').ready(function () {
