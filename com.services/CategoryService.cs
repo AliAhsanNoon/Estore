@@ -2,6 +2,7 @@
 using com.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,11 @@ namespace com.services
         public List<Category> GetCategories()
         {
             return context.Categories.ToList();
+        }
+
+        public List<Category> GetFeaturedCategories()
+        {
+            return context.Categories.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
         }
 
         public Category Edit(int ID)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using com.services;
+using com.web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,19 @@ namespace com.web.Controllers
 {
     public class HomeController : Controller
     {
+        CategoryService categoryService = new CategoryService();
+        ProductService productService = new ProductService();
         public ActionResult Index()
         {
-            return View();
+            var featuredCat = categoryService.GetFeaturedCategories();
+            var featuredPro = productService.GetFeaturedProducts();
+            var _homeViewModel = new HomeViewModel
+            {
+                FeaturedCategories = featuredCat,
+                FeaturedProducts = featuredPro
+            };
+            
+            return View(_homeViewModel);
         }
 
         public ActionResult About()

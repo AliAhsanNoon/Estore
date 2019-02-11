@@ -15,6 +15,11 @@ namespace com.services
 
         public List<Product> GetProducts()
         {   return context.Products.Include(x=> x.Category).ToList();   }
+        
+        public List<Product> GetFeaturedProducts()
+        {
+            return context.Products.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
+        }
 
         public Product GetProduct(int id)
         {
