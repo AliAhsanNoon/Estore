@@ -3,48 +3,63 @@
     ViewBag.Title = "Home Page";
 }
 
-@{ 
+@{
     var _p = Model.FeaturedProducts;
     var _c = Model.FeaturedCategories;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#featuredProducts" role="tab" aria-controls="home" aria-selected="true">Men</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Kids</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Women</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
 </div>
 
-<div class="row">
-    @*<div class="col-md-4">*@
+<section class="body-content" id="featuredCategories" style="margin:20px; padding:20px;">
+    <div class="row">
         <p class="text-capitalize lead text-center text-muted">Featured Categories</p>
         @foreach (var cat in _c)
-         {
+        {
             <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="@cat.ImageURL" width="200" height="200" class="card-img-top" alt="@cat.Name">
+                <div class="card text-center" style="width: 18rem;">
+                    <img src="@cat.ImageURL" width="170" height="200" class="card-box-shadow img-rounded card-img-top" alt="@cat.Name">
                     <div class="card-body">
                         <h5 class=" text-center card-title"><span class="lead">@cat.Name</span></h5>
-                        <p class="card-text text-muted"> @cat.Description.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p class="card-text text-center text-muted"> @cat.Description.</p>
+                        <a href="#" class="btn btn-block btn-info">View More</a>
                     </div>
                 </div>
             </div>
-         }
-</div>
-<div class="row">
-    @*<div class="col-md-4">*@
-    <p class="text-capitalize lead text-center text-muted">Featured Products</p>
-    @foreach (var product in _p)
-    {
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img src="@product.ImageURL" width="200" height="200" class="card-img-top" alt="@product.Name">
-                <div class="card-body">
-                    <h5 class=" text-center card-title"><span class="lead">@product.Name</span></h5>
-                    <p class="card-text text-muted"> @product.Description.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        }
+    </div>
+</section>
+<section class="body-content" id="featuredProducts">
+
+    <div class="row">
+        <p class="text-capitalize lead  text-center text-muted">Featured Products</p>
+        @foreach (var product in _p)
+        {
+            <div class="col-md-4">
+                <div class="card text-center " style="width: 18rem; ">
+
+                    <img src="@product.ImageURL" width="170" height="200" class="card-box-shadow img-rounded card-img-top" alt="@product.Name">
+                    <div class="card-body">
+                        <h5 class=" text-center card-title"><span class="lead">@product.Name</span></h5>
+                        <p class="card-text text-muted"> @product.Description.</p>
+                        <a href="#" class="text-center btn btn-block btn-success">$@product.Price BUY</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+</section>

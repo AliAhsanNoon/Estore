@@ -23,9 +23,10 @@
 
 @section Scripts{
 <script type="text/javascript">
-    var Popup, dataTables;
+    var Popup, dataTables, productInCart = [];
 
     $(document).ready(function () {
+
           dataTables = $("#ProductTable").DataTable({
               "ajax":
               {
@@ -41,7 +42,7 @@
                   {
                       "data": "ID",
                       "render": function (data) {
-                          return "<a style='margin-right:5px;' class='btn btn-sm btn-warning glyphicon glyphicon-shopping-cart'></a>  <button data-id='" + data + "' class='btn btn-sm btn-info glyphicon glyphicon-pencil' onclick=UpdateProduct('@Url.Action("Edit", "Product")/" + data + "')  ></button> <button data-id='" + data + "' onclick='delprod("+data+")' class='btnDel btn btn-sm btn-danger glyphicon glyphicon-trash' ></button>";
+                          return "<button data-id='" + data + "' style='margin-right:5px;' onclick=AddToCart('"+data+"') class='btn btn-sm btn-warning glyphicon glyphicon-shopping-cart addToCart'></button>  <button data-id='" + data + "' class='btn btn-sm btn-info glyphicon glyphicon-pencil' onclick=UpdateProduct('@Url.Action("Edit", "Product")/" + data + "')  ></button> <button data-id='" + data + "' onclick='delprod("+data+")' class='btnDel btn btn-sm btn-danger glyphicon glyphicon-trash' ></button>";
                       }
                   }
               ],
@@ -125,7 +126,14 @@
                 }
             });
             return false;
-        }
+    }
+    
+    function AddToCart(_id) {
+        productInCart.push(_id);
+        $.cookie("CartProducts", productInCart.join('-'), { path: '/' });
+       
+        console.log();
+    }
 
     function delprod(pid) {
             var _id = pid;
@@ -141,6 +149,6 @@
                     }).fail(function (XMLHttpRequest, txtStatus, errorThrown) { console.log('Fail') });
                 }
             });
-        }
+    }
 </script>
 }
