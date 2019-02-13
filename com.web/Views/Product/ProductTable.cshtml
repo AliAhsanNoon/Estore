@@ -1,0 +1,139 @@
+﻿@model List<com.Entities.Product>
+@{
+    ViewBag.Title = "ProductTable";
+}
+
+<p class="lead text-muted">Product Management Section</p>
+<button type="button" id="addNewProduct"
+        class="btn btn-sm glyphicon glyphicon-plus"></button>
+<br /><br />
+<table id="ProductTable" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>$@item.Price</td>
+                <td>
+                    @if (item.Category != null) { @item.Category.Name}
+                    else { <text>-</text>}
+                </td>
+                <td>
+                    <button class="addToCart glyphicon glyphicon-shopping-cart btn btn-sm" data-id="@item.ID" type="button"></button>
+                    <button class="editProductBtn glyphicon glyphicon-pencil btn btn-sm" data-id="@item.ID" type="button"></button>
+                    <button class="deleteProductBtn glyphicon glyphicon-trash btn btn-sm" data-id="@item.ID" type="button"></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    /* ------------ Add New Product Section ------------ */
+    $('body').on('click', '#addNewProduct', function () {
+        $.ajax({
+            url: '@Url.Action("Create","Product")',
+            type: 'GET'
+        }).done(function (res) {
+            $('#actionContainer').html(res);
+        }).fail(function () { alert('Failed'); });
+    });
+    
+    $('body').on('click', '#saveproduct', function () {
+        $.ajax({
+            url: '@Url.Action("Create","Product")',
+            type: 'POST',
+            data: $('#createProductForm').serialize()
+        }).done(function (res) {
+            $('#tableContainer').html(res);
+            $('#actionContainer').html("");
+        }).fail(function () { alert('Failed'); });
+    });
+    /* ------------ Add New Product Section Ends Here ------------ */
+
+    /* ------------ Update Product Section ------------ */
+    $('body').on('click', '.editProductBtn', function () {
+        $.ajax({
+            url: '@Url.Action("Edit","Product")/' + $(this).attr('data-id'),
+            type: 'GET',
+        }).done(function (res) {
+            $('#actionContainer').html(res);
+        }).fail(function () { alert('Failed'); });
+    });
+
+    $('body').on('click', '#updateproduct', function () {
+            $.ajax({
+                url: '@Url.Action("Edit","Product")/' + $(this).attr('data-id'),
+                type: 'POST',
+                data: $('#updateProductForm').serialize()
+            }).done(function (res) {
+                $('#actionContainer').html(res);
+            }).fail(function () { alert('Failed'); });
+    });
+
+    /* ------------ Update Product Section Ends Here ------------ */
+
+    /* ------------ Delete Product Section ------------ */
+    $('body').on('click', '.deleteProductBtn', function () {
+                swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this product record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Product")/' + $(this).attr('data-id'),
+                        type: 'POST'
+                    }).done(function (response) {
+                        $("#tableContainer").html(response);
+                        }).fail(function () { swal("Your record is safe!");})
+                    swal("Poof! Your prdouct record has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your record is safe!");
+                }
+            });
+    });
+
+    /* ------------ Delete Product Section Ends Here ------------ */
+    $("body").on('change','#imageUpload', function () {
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file)
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(function (response) {
+            if (response.Success) {
+                $("#categoryImage").attr("src", response.ImageURL);
+                $("#categoryImage").width(400);
+                $("#categoryImage").height(300);
+                $("#imageUrl").val(response.ImageURL);
+            }
+            console.log(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) { alert('Fail') });
+    });
+</script>

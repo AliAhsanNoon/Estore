@@ -62,32 +62,6 @@
 @section Scripts{
     <script type="text/javascript">
         $('document').ready(function () {
-
-            $("#imageUpload").on('change', function () {
-                var element = this;
-                var formData = new FormData();
-                var totalFiles = element.files.length;
-                for (var i = 0; i < totalFiles; i++) {
-                    var file = element.files[i];
-                    formData.append("Photo", file)
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: '/Shared/UploadImage',
-                    dataType: 'json',
-                    data: formData,
-                    contentType: false,
-                    processData: false
-                }).done(function (response) {
-                    if (response.Success) {
-                        $("#categoryImage").attr("src", response.ImageURL);
-                        $("#categoryImage").width(400);
-                        $("#categoryImage").height(300);
-                        $("#imageUrl").val(response.ImageURL);
-                    }
-                    console.log(response);
-                }).fail(function (XMLHttpRequest, textStatus, errorThrown) { alert('Fail') });
-            });
         });
     </script>
 }

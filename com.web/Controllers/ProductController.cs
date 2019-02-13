@@ -24,6 +24,27 @@ namespace com.web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Create()
+        {
+            return View(category.GetCategories());
+        }
+
+        [HttpPost]
+        public ActionResult Create(ProductViewModels viewModel)
+        {
+            var pinDB = new Product();
+
+            pinDB.Name = viewModel.Name;
+            pinDB.Description = viewModel.Description;
+            pinDB.Price = viewModel.Price;
+            pinDB.Category = category.Edit(viewModel.Category_ID);
+            pinDB.isFeatured = viewModel.isFeatured;
+            pinDB.ImageURL = viewModel.ImageURL;
+            productService.SaveProducts(pinDB);
+            return RedirectToAction("ProductTable");
+        }
+
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             var editModel = productService.GetProduct(id);
@@ -46,16 +67,16 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var del = productService.GetProduct(id);
-            productService.DeleteProducts(del.ID);
-            return Json(new { success }, JsonRequestBehavior.AllowGet);
+            //var del = productService.GetProduct(id);
+            productService.DeleteProducts(id);
+            return RedirectToAction("ProductTable");
         }
 
         public ActionResult ProductTable()
         {
             var products = productService.GetProducts();
 
-            return View(products);
+            return PartialView(products);
         }
 
         [HttpGet]
@@ -69,16 +90,13 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult CreateOrUpdate(ProductViewModels viewModel)
         {
-            bool setTrue;
-            if(viewModel.isFeatured) { setTrue = true; }
-            else { setTrue = false; }
             var pinDB = new Product();
 
             pinDB.Name = viewModel.Name;
             pinDB.Description = viewModel.Description;
             pinDB.Price = viewModel.Price;
             pinDB.Category = category.Edit(viewModel.Category_ID);
-            pinDB.isFeatured = setTrue;//viewModel.isFeatured;
+            pinDB.isFeatured = viewModel.isFeatured;
             pinDB.ImageURL = viewModel.ImageURL;
             productService.SaveProducts(pinDB);
             return Json(new { success }, JsonRequestBehavior.AllowGet);
