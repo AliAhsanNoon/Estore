@@ -3,94 +3,9 @@
     ViewBag.Title = "CategoryTable";
 }
 
-<div class="body-content">
+
     <div id="tableConatiner">
         @{ Html.RenderAction("CategoryTable");}
     </div>
     <div id="actionContainer"></div>
-</div>
 
-
-@section Scripts{
-<script type="text/javascript">
-    @*var Popup, dataTables;
-    $(document).ready(function () {
-         dataTables = $("#CategoryTable").DataTable({
-                "ajax": {
-                        "url": "/Category/CategoryTable",
-                        "type": "GET",
-                        "datatype": "json"
-                },
-                "columns": [
-                     { "data": "Name" }, { "data": "Description" },
-                     {
-                          "data": "isFeatured",
-                          "render": function (data) {
-                                 return "<input type='checkbox' name='isFeatured'  value="+data+" disabled>";
-                          }
-
-                     },
-                    {
-                          "data": "ID",
-                          "render": function (data) {
-                               return "<a style='margin-left:25px;' class='btn btn-warning glyphicon glyphicon-pencil'  onclick=PopupForm('@Url.Action("CreateOrUpdate","Category")/"+ data +"')   ></a> <a class='btn btn-danger glyphicon glyphicon-trash' onclick=Delete(" + data + ") ></a> ";
-                          }
-                    }
-                ],
-                "language": {"CategoryTable": "No Data Found"}
-        });
-    });*@
-
-    @*function PopupForm(url) {
-        var formDiv = $('<div />');
-            $.get(url).done(function (response) {
-                formDiv.html(response);
-                Popup = formDiv.dialog({
-                    autoOpen: true,
-                    resizable: false,
-                    title: 'Fill Category Details',
-                    height: 425,
-                    width: 900,
-                    show: {
-                        effect: "drop",
-                        duration: 500
-                    },
-                    close: function () {
-                        Popup.dialog('destroy').remove();
-                    }
-                });
-            });
-        }
-
-    function SubmitForm(form) {
-            $.ajax({
-                type: "POST",
-                url: form.action,
-                data: $(form).serialize(),
-                success: function (data) {
-                    if (data.success) {
-                        Popup.dialog("close");
-                        dataTables.ajax.reload();
-                    }
-                }
-            });
-            return false;
-        }
-
-    function Delete(data) {
-        bootbox.confirm("Are you sure you want to delete this Category?", function (result) {
-            if (result) {
-                $.ajax({
-                        type:"POST",
-                        url: '@Url.Action("Delete","Category")/' + data,
-                        success: function (data) {
-                            if (data.success) {
-                             dataTables.ajax.reload();
-                            }
-                        }
-                });
-            }
-        });
-    }*@
-</script>
-} 

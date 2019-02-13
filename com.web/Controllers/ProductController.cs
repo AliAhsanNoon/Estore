@@ -1,13 +1,11 @@
 ﻿using com.Entities;
 using com.services;
 using com.web.ViewModels;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace com.web.Controllers
 {
@@ -26,7 +24,7 @@ namespace com.web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View(category.GetCategories());
+            return PartialView(category.GetCategories());
         }
 
         [HttpPost]
@@ -48,7 +46,7 @@ namespace com.web.Controllers
         public ActionResult Edit(int id)
         {
             var editModel = productService.GetProduct(id);
-            return View(editModel);
+            return PartialView(editModel);
         }
 
         [HttpPost]
@@ -77,29 +75,6 @@ namespace com.web.Controllers
             var products = productService.GetProducts();
 
             return PartialView(products);
-        }
-
-        [HttpGet]
-        public ActionResult CreateOrUpdate(int id = 0)
-        {
-            var editModel = productService.GetProduct(id);
-            var _catList = category.GetCategories();
-            return View("CreateOrUpdate", _catList);
-        }
-
-        [HttpPost]
-        public ActionResult CreateOrUpdate(ProductViewModels viewModel)
-        {
-            var pinDB = new Product();
-
-            pinDB.Name = viewModel.Name;
-            pinDB.Description = viewModel.Description;
-            pinDB.Price = viewModel.Price;
-            pinDB.Category = category.Edit(viewModel.Category_ID);
-            pinDB.isFeatured = viewModel.isFeatured;
-            pinDB.ImageURL = viewModel.ImageURL;
-            productService.SaveProducts(pinDB);
-            return Json(new { success }, JsonRequestBehavior.AllowGet);
         }
 
     }

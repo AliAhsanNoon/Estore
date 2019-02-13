@@ -3,59 +3,62 @@
     ViewBag.Title = "Create";
 }
 
-<div class="row">
-    <form id="createProductForm">
+<div class="modal-body">
+    <div class="row">
         <div class="col-md-6">
+            <form id="createProductForm">
 
-            <div class="form-group">
-                <label for="Name" class="control-label">Name</label>
-                <input type="text" name="Name" placeholder="Product Name" class="form-control" />
-            </div>
-         
-            <div class="form-group">
-                <label for="Price" class="control-label">Price</label>
-                <input type="number" name="Price" placeholder="Product Price" class="form-control" />
-            </div>
 
-            <div class="form-group">
-                <label for="Description" class="control-label">Description</label>
-                <textarea rows="3" class="form-control" placeholder="Product Description" name="Description"></textarea>
-            </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Name</label>
+                    <input type="text" name="Name" placeholder="Product Name" class="form-control" />
+                </div>
 
-            <select class="form-control" name="Category_ID">
-                <option value="SelectCategory">SelectCategory</option>
-                @foreach (var item in Model)
-                {
-                    <option value="@item.ID">@item.Name</option>
-                }
-            </select>
-            <br />
-            <div class="form-group">
-                <input type="file" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
-                <input name="imageUrl" id="imageUrl" type="hidden" />
-            </div>
+                <div class="form-group">
+                    <label for="Price" class="control-label">Price</label>
+                    <input type="number" name="Price" placeholder="Product Price" class="form-control" />
+                </div>
 
-            <div class="form-group">
-                <label>Is Featured?</label>
-                <div class="input-group">
-                    <div class="radio form-control">
-                        <label><input name="isFeatured" type="radio" value="True" /> Yes</label>
-                    </div>
-                    <div class="radio form-control">
-                        <label><input name="isFeatured" type="radio" value="False" /> No</label>
+                <div class="form-group">
+                    <label for="Description" class="control-label">Description</label>
+                    <textarea rows="3" class="form-control" placeholder="Product Description" name="Description"></textarea>
+                </div>
+
+                <select class="form-control" name="Category_ID">
+                    <option value="SelectCategory">SelectCategory</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+                <br />
+                <div class="form-group">
+                    <input type="file" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
+                    <input name="imageUrl" id="imageUrl" type="hidden" />
+                </div>
+
+                <div class="form-group">
+                    <label>Is Featured?</label>
+                    <div class="input-group">
+                        <div class="radio form-control">
+                            <label><input name="isFeatured" type="radio" value="True" /> Yes</label>
+                        </div>
+                        <div class="radio form-control">
+                            <label><input name="isFeatured" type="radio" value="False" /> No</label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <button type="button" id="saveproduct" class="btn btn-primary">Submit</button>
-            </div>
+                <div class="form-group">
+                    <button type="button" id="saveproduct" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </div>
 
-        <div class="col-md-6" style="margin-left:-200px;">
+        <div class="col-md-6">
             <div class="card">
-                <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
+                <img id="categoryImage" src="~/Content/images/noOne.png" class="img-thumbnail img-fluid " />
             </div>
         </div>
-    </form>
+    </div>
 </div>

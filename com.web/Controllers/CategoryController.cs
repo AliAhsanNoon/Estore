@@ -10,7 +10,7 @@ namespace com.web.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly bool success = true;
+
         CategoryService categoryService = new CategoryService();
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace com.web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View(categoryService.Edit(id));
+            return PartialView(categoryService.Edit(id));
         }
 
         [HttpPost]
@@ -65,32 +65,5 @@ namespace com.web.Controllers
             return PartialView(cat); 
         }
 
-        //[HttpGet]
-        //public ActionResult New()
-        //{
-        //    return View();
-        //}
-
-        //[HttpGet]
-        //public ActionResult CreateOrUpdate(int id=0 )
-        //{
-        //    var c = categoryService.Edit(id);
-        //    return View(c);
-        //}
-
-        //[HttpPost]
-        //public ActionResult CreateOrUpdate(Category category)
-        //{
-        //    if(category.ID == 0)
-        //    {
-        //        categoryService.SaveCategory(category);
-        //        return Json(new { success }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    else
-        //    {
-        //        categoryService.updateCategory(category);
-        //        return Json(new { success  }, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
     }
 }

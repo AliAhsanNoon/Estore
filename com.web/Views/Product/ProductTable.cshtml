@@ -3,41 +3,47 @@
     ViewBag.Title = "ProductTable";
 }
 
-<p class="lead text-muted">Product Management Section</p>
-<button type="button" id="addNewProduct"
-        class="btn btn-sm glyphicon glyphicon-plus"></button>
-<br /><br />
-<table id="ProductTable" class="table table-bordered table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="modal-body">
+    <p class="lead text-muted">Product Management Section</p>
+    <button type="button" id="addNewProduct"
+            class="btn btn-sm ">
+        <i class="fa fa-plus"></i>
+    </button>
+    <br /><br />
+    <table id="ProductTable" class=" m-2 table table-bordered table-striped table-hover">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Description</td>
-                <td>$@item.Price</td>
-                <td>
-                    @if (item.Category != null) { @item.Category.Name}
-                    else { <text>-</text>}
-                </td>
-                <td>
-                    <button class="addToCart glyphicon glyphicon-shopping-cart btn btn-sm" data-id="@item.ID" type="button"></button>
-                    <button class="editProductBtn glyphicon glyphicon-pencil btn btn-sm" data-id="@item.ID" type="button"></button>
-                    <button class="deleteProductBtn glyphicon glyphicon-trash btn btn-sm" data-id="@item.ID" type="button"></button>
-                </td>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>$@item.Price</td>
+                    <td>
+                        @if (item.Category != null)
+                        {@item.Category.Name}
+                    else
+                    { <text>-</text>}
+                    </td>
+                    <td>
+                        <button class="addToCart glyphicon  btn btn-sm" data-id="@item.ID" type="button"><i class="fa fa-shopping-cart"></i></button>
+                        <button class="editProductBtn  btn btn-sm" data-id="@item.ID" type="button">  <i class="fa fa-pencil"></i></button>
+                        <button class="deleteProductBtn btn btn-sm" data-id="@item.ID" type="button"> <i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script type="text/javascript">
     /* ------------ Add New Product Section ------------ */

@@ -5,9 +5,10 @@
 
 <h2>Edit</h2>
 <div class="row">
-    <form id="updateCategoryForm">
-        <input type="hidden" value="@Model.ID" name="ID" />
-        <div class="col-md-6">
+    <div class="col-md-6">
+        <form id="updateCategoryForm">
+            <input type="hidden" value="@Model.ID" name="ID" />
+
 
             <div class="form-group">
                 <input value="@Model.Name" class="form-control" type="text" placeholder="Product Name" name="Name" />
@@ -20,7 +21,7 @@
             <div class="form-group">
                 <label>Is Featured?</label>
                 <div class="input-group">
-                    @{ 
+                    @{
                         var rdtrue = Model.isFeatured ? "checked" : string.Empty;
                         var rdfalse = !Model.isFeatured ? "checked" : string.Empty;
                     }
@@ -28,7 +29,7 @@
                         <label><input name="isFeatured" type="radio" value="True" @rdtrue /> Yes</label>
                     </div>
                     <div class="radio form-control">
-                        <label><input name="isFeatured" type="radio" value="False" @rdfalse  /> No</label>
+                        <label><input name="isFeatured" type="radio" value="False" @rdfalse /> No</label>
                     </div>
                 </div>
             </div>
@@ -41,15 +42,15 @@
             <div class="form-group">
                 <input type="button" value="update" id="updateCat" class="btn btn-primary" />
             </div>
+        </form>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            @{
+                var imgLink = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "~/Content/images/noOne.png";
+            }
+            <img id="categoryImage" src="@imgLink" class="img-thumbnail img-fluid " />
         </div>
-
-        <div class="col-md-6">
-            <div class="card">
-                @{ 
-                    var imgLink = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "~/Content/images/noOne.png";
-                 }
-                    <img id="categoryImage" width="400" height="300" src="@imgLink" class=" img-fluid " />
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
