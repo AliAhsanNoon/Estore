@@ -48,15 +48,8 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            try
-            {
                 categoryService.Delete(id);
                 return RedirectToAction("CategoryTable");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         public ActionResult CategoryTable()

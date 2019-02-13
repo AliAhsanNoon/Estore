@@ -3,12 +3,13 @@
     ViewBag.Title = "ProductTable";
 }
 
-<div class="modal-body">
-    <p class="lead text-muted">Product Management Section</p>
+<div class=" m-2 modal-body">
+    <p id="pMgm" class="lead text-center text-danger">Product Management Section</p>
     <button type="button" id="addNewProduct"
             class="btn btn-sm ">
         <i class="fa fa-plus"></i>
     </button>
+    <a href="/Category" class="btn btn-default">CategorySection</a>
     <br /><br />
     <table id="ProductTable" class=" m-2 table table-bordered table-striped table-hover">
         <thead>
@@ -53,6 +54,9 @@
             type: 'GET'
         }).done(function (res) {
             $('#actionContainer').html(res);
+            $('html, body').animate({
+                scrollTop: ($('#createProductForm').offset().top)
+            }, 1000);
         }).fail(function () { alert('Failed'); });
     });
     
@@ -64,6 +68,9 @@
         }).done(function (res) {
             $('#tableContainer').html(res);
             $('#actionContainer').html("");
+            $('html, body').animate({
+                scrollTop: ($('#pMgm').offset().top)
+            }, 1000);
         }).fail(function () { alert('Failed'); });
     });
     /* ------------ Add New Product Section Ends Here ------------ */
@@ -75,6 +82,9 @@
             type: 'GET',
         }).done(function (res) {
             $('#actionContainer').html(res);
+            $('html, body').animate({
+                scrollTop: ($('#updateProductForm').offset().top)
+            }, 1000);
         }).fail(function () { alert('Failed'); });
     });
 
@@ -84,7 +94,11 @@
                 type: 'POST',
                 data: $('#updateProductForm').serialize()
             }).done(function (res) {
-                $('#actionContainer').html(res);
+                $('#tableContainer').html(res);
+                $('#actionContainer').html("");
+                $('html, body').animate({
+                    scrollTop: ($('#pMgm').offset().top)
+                }, 1000);
             }).fail(function () { alert('Failed'); });
     });
 

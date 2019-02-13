@@ -59,7 +59,7 @@ namespace com.web.Controllers
             _product.isFeatured = productVM.isFeatured;
             _product.ImageURL = productVM.ImageURL;
             productService.UpdateProducts(_product);
-            return Json(new { success },JsonRequestBehavior.AllowGet);
+            return RedirectToAction("ProductTable");
         }
 
         [HttpPost]
