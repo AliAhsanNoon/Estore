@@ -17,15 +17,25 @@
                 <input value="@Model.Description" class="form-control" type="text" placeholder="Description" name="Description" />
             </div>
 
-            <div class="checkbox">
-                <label class="text-muted">
-                    <input checked="@Model.isFeatured" type="checkbox" name="isFeatured" class="checkbox" /> Is Featured ?
-                </label>
+            <div class="form-group">
+                <label>Is Featured?</label>
+                <div class="input-group">
+                    @{ 
+                        var rdtrue = Model.isFeatured ? "checked" : string.Empty;
+                        var rdfalse = !Model.isFeatured ? "checked" : string.Empty;
+                    }
+                    <div class="radio form-control">
+                        <label><input name="isFeatured" type="radio" value="True" @rdtrue /> Yes</label>
+                    </div>
+                    <div class="radio form-control">
+                        <label><input name="isFeatured" type="radio" value="False" @rdfalse  /> No</label>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
-                <input type="file" src="@Model.ImageURL" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
-                <input name="imageUrl" id="imageUrl" type="hidden" />
+                <input type="file" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
+                <input name="imageUrl" id="imageUrl" value="@Model.ImageURL" type="hidden" />
             </div>
 
             <div class="form-group">
@@ -35,15 +45,10 @@
 
         <div class="col-md-6">
             <div class="card">
-                @{ var imgLink = Model.ImageURL;}
-                @if (!string.IsNullOrEmpty(Model.ImageURL))
-                {
-                    <img id="categoryImage" width="400" height="300" src="@Model.ImageURL" class=" img-fluid " />
-                }
-                else
-                {
-                    <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
-                }
+                @{ 
+                    var imgLink = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "~/Content/images/noOne.png";
+                 }
+                    <img id="categoryImage" width="400" height="300" src="@imgLink" class=" img-fluid " />
             </div>
         </div>
     </form>

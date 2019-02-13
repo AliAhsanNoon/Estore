@@ -53,7 +53,6 @@ namespace com.services
         {
             var catId = context.Categories.Single(x => x.ID == id);
             context.Categories.Remove(catId);
-            //context.Entry(catId).State = System.Data.Entity.EntityState.Deleted;
             context.SaveChanges();
         }
     }
