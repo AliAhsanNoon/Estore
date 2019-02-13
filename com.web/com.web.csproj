@@ -425,6 +425,8 @@
     <Content Include="Views\Category\CreateOrUpdate.cshtml" />
     <Content Include="Views\Product\CreateOrUpdate.cshtml" />
     <Content Include="Views\Category\New.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

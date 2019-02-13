@@ -19,13 +19,39 @@ namespace com.web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Category category)
+        {
+            categoryService.SaveCategory(category);
+            return RedirectToAction("CategoryTable");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            return View(categoryService.Edit(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Category category)
+        {
+            categoryService.updateCategory(category);
+            return RedirectToAction("CategoryTable");
+        }
+
         [HttpPost]
         public ActionResult Delete(int id)
         {
             try
             {
                 categoryService.Delete(id);
-                return Json(new { success }, JsonRequestBehavior.AllowGet);
+                return RedirectToAction("CategoryTable");
             }
             catch
             {
@@ -36,21 +62,22 @@ namespace com.web.Controllers
         public ActionResult CategoryTable()
         {
             var cat = categoryService.GetCategories();
-            return Json(new { data = cat}, JsonRequestBehavior.AllowGet); 
+            return PartialView(cat); 
         }
 
         [HttpGet]
         public ActionResult New()
         {
-
             return View();
         }
+
         [HttpGet]
         public ActionResult CreateOrUpdate(int id=0 )
         {
             var c = categoryService.Edit(id);
             return View(c);
         }
+
         [HttpPost]
         public ActionResult CreateOrUpdate(Category category)
         {
@@ -65,6 +92,5 @@ namespace com.web.Controllers
                 return Json(new { success  }, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

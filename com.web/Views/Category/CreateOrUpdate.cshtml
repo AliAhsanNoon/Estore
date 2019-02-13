@@ -45,7 +45,7 @@
 
                     @if (Model.ImageURL != null)
                      {
-                        <img id="categoryImage" width="400" height="300" src="@Model.ImageURL" class=" img-fluid " />
+                        <img id="categoryImage" width="250" height="300" src="@Model.ImageURL" class=" img-fluid " />
                      }
                     else
                     {
@@ -78,7 +78,7 @@
                 }).done(function (response) {
                     if (response.Success) {
                         $("#categoryImage").attr("src", response.ImageURL);
-                        $("#categoryImage").width(400);
+                        $("#categoryImage").width(250);
                         $("#categoryImage").height(300);
                         $("#imageUrl").val(response.ImageURL);
                     }

@@ -55,7 +55,7 @@ namespace com.web.Controllers
         {
             var products = productService.GetProducts();
 
-            return Json(new { data = products }, JsonRequestBehavior.AllowGet);
+            return View(products);
         }
 
         [HttpGet]

@@ -52,7 +52,8 @@ namespace com.services
         public void Delete(int id)
         {
             var catId = context.Categories.Single(x => x.ID == id);
-            context.Entry(catId).State = System.Data.Entity.EntityState.Deleted;
+            context.Categories.Remove(catId);
+            //context.Entry(catId).State = System.Data.Entity.EntityState.Deleted;
             context.SaveChanges();
         }
     }

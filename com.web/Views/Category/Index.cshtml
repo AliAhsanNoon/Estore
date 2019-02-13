@@ -2,28 +2,18 @@
 @{
     ViewBag.Title = "CategoryTable";
 }
-<br />
-<p class=" lead text-muted"> Category Management Section</p>
 
-<button type="button"
-        onclick="PopupForm('@Url.Action("New","Category")')"
-        class="btn btn-info btn-sm glyphicon glyphicon-plus">
-</button>
+<div class="body-content">
+    <div id="tableConatiner">
+        @{ Html.RenderAction("CategoryTable");}
+    </div>
+    <div id="actionContainer"></div>
+</div>
 
-<table id="CategoryTable" class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>IsFeatured</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-</table>
 
 @section Scripts{
 <script type="text/javascript">
-    var Popup, dataTables;
+    @*var Popup, dataTables;
     $(document).ready(function () {
          dataTables = $("#CategoryTable").DataTable({
                 "ajax": {
@@ -49,9 +39,9 @@
                 ],
                 "language": {"CategoryTable": "No Data Found"}
         });
-    });
+    });*@
 
-    function PopupForm(url) {
+    @*function PopupForm(url) {
         var formDiv = $('<div />');
             $.get(url).done(function (response) {
                 formDiv.html(response);
@@ -101,6 +91,6 @@
                 });
             }
         });
-    }
+    }*@
 </script>
 } 

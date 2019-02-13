@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<div class="row">
+    <form id="saveCategory">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="Product Name" name="Name" />
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="Description" name="Description" />
+            </div>
+
+            <div class="checkbox">
+                <label class="text-muted">
+                    <input type="checkbox" name="isFeatured" class="checkbox" checked /> Is Featured ?
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input type="file" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
+                <input name="imageUrl" id="imageUrl" type="hidden" />
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="Submit" id="addNewCat" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <img id="categoryImage" width="400" height="300" src="~/Content/images/noOne.png" class=" img-fluid " />
+            </div>
+        </div>
+    </form>
+</div>
