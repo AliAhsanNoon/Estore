@@ -65,32 +65,32 @@ namespace com.web.Controllers
             return PartialView(cat); 
         }
 
-        [HttpGet]
-        public ActionResult New()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult New()
+        //{
+        //    return View();
+        //}
 
-        [HttpGet]
-        public ActionResult CreateOrUpdate(int id=0 )
-        {
-            var c = categoryService.Edit(id);
-            return View(c);
-        }
+        //[HttpGet]
+        //public ActionResult CreateOrUpdate(int id=0 )
+        //{
+        //    var c = categoryService.Edit(id);
+        //    return View(c);
+        //}
 
-        [HttpPost]
-        public ActionResult CreateOrUpdate(Category category)
-        {
-            if(category.ID == 0)
-            {
-                categoryService.SaveCategory(category);
-                return Json(new { success }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                categoryService.updateCategory(category);
-                return Json(new { success  }, JsonRequestBehavior.AllowGet);
-            }
-        }
+        //[HttpPost]
+        //public ActionResult CreateOrUpdate(Category category)
+        //{
+        //    if(category.ID == 0)
+        //    {
+        //        categoryService.SaveCategory(category);
+        //        return Json(new { success }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        categoryService.updateCategory(category);
+        //        return Json(new { success  }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
     }
 }

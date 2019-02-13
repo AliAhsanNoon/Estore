@@ -49,6 +49,9 @@
             type: 'GET'
         }).done(function (response) {
             $("#actionContainer").html(response);
+            $('html, body').animate({
+                scrollTop: ($('#saveCategory').offset().top)
+            }, 1000);
         }).fail(function () { alert('Fail'); });
     });
 
@@ -60,6 +63,9 @@
         }).done(function (response) {
             $("#tableConatiner").html(response);
             $("#actionContainer").html("");
+            $('html, body').animate({
+                scrollTop: ($('#cMgm').offset().top)
+            }, 1000);
         })
     });
 
@@ -70,6 +76,9 @@
         $.ajax({ url: '@Url.Action("Edit","Category")/' + $(this).attr('data-id'), type: 'GET' })
             .done(function (response) {
                 $('#actionContainer').html(response);
+                $('html, body').animate({
+                    scrollTop: ($('#updateCat').offset().top)
+                }, 1000);
             }).fail(function () { alert('Request Failed'); });
     });
 
@@ -81,7 +90,10 @@
         }).done(function (response) {
             $("#tableConatiner").html(response);
             $("#actionContainer").html("");
-        }).fai(function () { alert('Request Failed'); });
+            $('html, body').animate({
+                scrollTop: ($('#cMgm').offset().top)
+            }, 1000);
+        }).fail(function () { alert('Request Failed'); });
     });
     /* ---------    Edit Category Section Ends Here  --------- */
 
