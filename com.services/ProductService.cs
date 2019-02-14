@@ -1,11 +1,8 @@
 ﻿using com.database;
 using com.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace com.services
 {
@@ -19,6 +16,16 @@ namespace com.services
         public List<Product> GetFeaturedProducts()
         {
             return context.Products.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
+        }
+
+        public List<Product> NewProduct()
+        {
+            return context.Products.OrderByDescending(x=> x.ID ).Where(x=> x.ImageURL != null).Take(4).ToList();
+        }
+
+        public List<Product> NewProductx()
+        {
+            return context.Products.Where(x => x.ImageURL != null).Take(8).ToList();
         }
 
         public Product GetProduct(int id)

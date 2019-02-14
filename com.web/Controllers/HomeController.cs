@@ -15,11 +15,13 @@ namespace com.web.Controllers
         public ActionResult Index()
         {
             var featuredCat = categoryService.GetFeaturedCategories();
-            var featuredPro = productService.GetFeaturedProducts();
+            var newPro = productService.NewProduct();
+            var newProdx = productService.NewProductx();
             var _homeViewModel = new HomeViewModel
             {
                 FeaturedCategories = featuredCat,
-                FeaturedProducts = featuredPro
+                NewProducts = newPro,
+                NewProductx = newProdx
             };
             
             return View(_homeViewModel);

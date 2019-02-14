@@ -9,6 +9,7 @@ namespace com.web.ViewModels
     public class HomeViewModel
     {
         public List<Category> FeaturedCategories { get; set; }
-        public List<Product>  FeaturedProducts { get; set; }
+        public List<Product>  NewProducts { get; set; }
+        public List<Product> NewProductx { get; set; }
     }
 }
