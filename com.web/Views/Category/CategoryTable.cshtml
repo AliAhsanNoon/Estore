@@ -3,14 +3,19 @@
     ViewBag.Title = "CategoryTable";
 }
 
+
 <div class="modal-body">
-    <p id="cMgm" class="display-4 text-center">Category Manegement Section</p>
+    <div id="cMgm" class="title-section">
+        <h2 class="title">
+            Category
+        </h2>
+    </div>
     <div class="row">
         <div class="col-md-2">
             <button id="createNew" type="button" value="Add New" class="m-3 btn-sm btn button ">
                 <i class="fa fa-plus-circle"></i>
             </button>
-            <a href="/Product" class="btn btn-default" >ProductSection</a>
+            <a href="/Product" class="btn btn-default">ProductSection</a>
         </div>
     </div>
 
@@ -48,7 +53,7 @@
         }).done(function (response) {
             $("#actionContainer").html(response);
             $('html, body').animate({
-                scrollTop: ($('#saveCategory').offset().top)
+                scrollTop: ($('#cCat').offset().top)
             }, 1000);
         }).fail(function () { alert('Fail'); });
     });
@@ -75,7 +80,7 @@
             .done(function (response) {
                 $('#actionContainer').html(response);
                 $('html, body').animate({
-                    scrollTop: ($('#updateCat').offset().top)
+                    scrollTop: ($('#uCat').offset().top)
                 }, 1000);
             }).fail(function () { alert('Request Failed'); });
     });

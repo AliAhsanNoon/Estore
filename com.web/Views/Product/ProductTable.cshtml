@@ -4,7 +4,11 @@
 }
 
 <div class=" m-2 modal-body">
-    <p id="pMgm" class="lead text-center text-danger">Product Management Section</p>
+    <div id="pMgm" class="title-section">
+        <h2 class="title">
+            Product Section
+        </h2>
+    </div>
     <button type="button" id="addNewProduct"
             class="btn btn-sm ">
         <i class="fa fa-plus"></i>
@@ -56,7 +60,7 @@
         }).done(function (res) {
             $('#actionContainer').html(res);
             $('html, body').animate({
-                scrollTop: ($('#createProductForm').offset().top)
+                scrollTop: ($('#cProduct').offset().top)
             }, 1000);
         }).fail(function () { alert('Failed'); });
     });
@@ -84,7 +88,7 @@
         }).done(function (res) {
             $('#actionContainer').html(res);
             $('html, body').animate({
-                scrollTop: ($('#updateProductForm').offset().top)
+                scrollTop: ($('#uProduct').offset().top)
             }, 1000);
         }).fail(function () { alert('Failed'); });
     });
