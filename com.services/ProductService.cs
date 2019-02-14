@@ -11,8 +11,13 @@ namespace com.services
         CContext context = new CContext();
 
         public List<Product> GetProducts()
-        {   return context.Products.Include(x=> x.Category).ToList();   }
-        
+        { return context.Products.Include(x => x.Category).ToList(); }
+
+        public List<Product> GetProducts (List<int> pId)
+        {
+            return context.Products.Where(x => pId.Contains(x.ID)).ToList();
+        }
+
         public List<Product> GetFeaturedProducts()
         {
             return context.Products.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
