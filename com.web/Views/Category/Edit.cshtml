@@ -55,7 +55,9 @@
             @{
                 var imgLink = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "~/Content/images/noOne.png";
             }
-            <img id="categoryImage" src="@imgLink" class="img-thumbnail img-fluid " />
+            <div class="col-md-8">
+                <img id="categoryImage" src="@imgLink" class="img-thumbnail img-fluid " />
+            </div>
         </div>
     </div>
 </div>
