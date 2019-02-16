@@ -8,14 +8,17 @@ namespace com.services
 {
     public class ProductService
     {
-        public  static ProductService Instance
-        {
-            get { if (Instance == null) instance = new ProductService(); return instance; }
-        }
+        //public  static ProductService Instance
+        //{
+        //    get {
+        //        if (Instance == null) instance = new ProductService();
+        //        return instance;
+        //    }
+        //}
 
-        private static ProductService instance { get; set; }
+        //private static ProductService instance { get; set; }
 
-        private ProductService() {}
+        //private ProductService() {}
 
         CContext context = new CContext();
 

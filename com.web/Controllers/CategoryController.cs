@@ -10,9 +10,6 @@ namespace com.web.Controllers
 {
     public class CategoryController : Controller
     {
-
-        CategoryService categoryService = new CategoryService();
-
         [HttpGet]
         public ActionResult Index()
         {
@@ -28,33 +25,33 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
-            categoryService.SaveCategory(category);
+            CategoryService.Instance.SaveCategory(category);
             return RedirectToAction("CategoryTable");
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            return PartialView(categoryService.Edit(id));
+            return PartialView(CategoryService.Instance.Edit(id));
         }
 
         [HttpPost]
         public ActionResult Edit(Category category)
         {
-            categoryService.updateCategory(category);
+            CategoryService.Instance.updateCategory(category);
             return RedirectToAction("CategoryTable");
         }
 
         [HttpPost]
         public ActionResult Delete(int id)
         {
-                categoryService.Delete(id);
+            CategoryService.Instance.Delete(id);
                 return RedirectToAction("CategoryTable");
         }
 
         public ActionResult CategoryTable()
         {
-            var cat = categoryService.GetCategories();
+            var cat = CategoryService.Instance.GetCategories();
             return PartialView(cat); 
         }
 

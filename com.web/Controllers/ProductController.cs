@@ -11,8 +11,7 @@ namespace com.web.Controllers
 {
     public class ProductController : Controller
     {
-
-        CategoryService category = new CategoryService();
+        ProductService productService = new ProductService();
 
         public ActionResult Index()
         {
@@ -24,7 +23,7 @@ namespace com.web.Controllers
         {
             var _viewModel = new NewProductViewModels
             {
-                CategoryList = category.GetCategories()
+                CategoryList = CategoryService.Instance.GetCategories()
             };
 
             return PartialView(_viewModel);
@@ -38,10 +37,10 @@ namespace com.web.Controllers
             newProduct.Name = viewModel.Name;
             newProduct.Description = viewModel.Description;
             newProduct.Price = viewModel.Price;
-            newProduct.Category = category.Edit(viewModel.CategoryID);
+            newProduct.Category = CategoryService.Instance.Edit(viewModel.CategoryID);
             newProduct.isFeatured = viewModel.isFeatured;
             newProduct.ImageURL = viewModel.ImageURL;
-            ProductService.Instance.SaveProducts(newProduct);
+            productService.SaveProducts(newProduct);
 
             return RedirectToAction("ProductTable");
         }
@@ -49,31 +48,31 @@ namespace com.web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var prod = ProductService.Instance.GetProduct(id);
+            var prod = productService.GetProduct(id);
             UpdateProductViewModels editModel = new UpdateProductViewModels ();
             editModel.ID = prod.ID;
             editModel.Name = prod.Name;
             editModel.Description = prod.Description;
             editModel.Price = prod.Price;
             editModel.CategoryID = prod.Category != null ? prod.Category.ID : 0;
-            editModel.CategoryList = category.GetCategories();
+            editModel.CategoryList = CategoryService.Instance.GetCategories();
             editModel.ImageURL = prod.ImageURL;
-            editModel.isFeatured = prod.isFeatured;
+            editModel.isFeatured = prod.isFeatured; 
             return PartialView(editModel);
         }
 
         [HttpPost]
         public ActionResult Edit(UpdateProductViewModels productVM)
         {
-            var _product = ProductService.Instance.GetProduct(productVM.ID);
+             var _product = productService.GetProduct(productVM.ID);
             _product.ID = productVM.ID;
             _product.Name = productVM.Name;
             _product.Description = productVM.Description;
             _product.isFeatured = productVM.isFeatured;
             _product.ImageURL = productVM.ImageURL;
             _product.Category = null;
-            _product.CategoryID = productVM.CategoryID;
-            ProductService.Instance.UpdateProducts(_product);
+            _product.Category = CategoryService.Instance.Edit(productVM.CategoryID);
+            productService.UpdateProducts(_product);
             return RedirectToAction("ProductTable");
         }
 
@@ -81,13 +80,13 @@ namespace com.web.Controllers
         public ActionResult Delete(int id)
         {
             //var del = productService.GetProduct(id);
-            ProductService.Instance.DeleteProducts(id);
+            productService.DeleteProducts(id);
             return RedirectToAction("ProductTable");
         }
 
         public ActionResult ProductTable()
         {
-            var products = ProductService.Instance.GetProducts();
+            var products = productService.GetProducts();
 
             return PartialView(products);
         }

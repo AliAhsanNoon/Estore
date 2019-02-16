@@ -10,13 +10,11 @@ namespace com.web.Controllers
 {
     public class HomeController : Controller
     {
-        CategoryService categoryService = new CategoryService();
         ProductService productService = new ProductService();
-
         public ActionResult Index()
         {
-            var featuredCat = categoryService.GetFeaturedCategories();
-            var newPro = productService.NewProduct();
+            var featuredCat = CategoryService.Instance.GetFeaturedCategories();
+            var newPro =   productService.NewProduct();
             var newProdx = productService.NewProductx();
             var _homeViewModel = new HomeViewModel
             {

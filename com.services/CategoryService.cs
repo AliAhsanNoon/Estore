@@ -1,31 +1,46 @@
 ﻿using com.database;
 using com.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace com.services
 {
     public class CategoryService
     {
-        CContext context = new CContext();
+        public static CategoryService Instance{
+            get
+            {
+                if (instance == null) instance = new CategoryService();
+                return instance;
+            }
+        }
+        private static CategoryService instance {get;set;}
+        
+        private CategoryService()
+        {
+
+        }
 
         public List<Category> GetCategories()
         {
-            return context.Categories.ToList();
+            using (var context = new CContext())
+            {
+                return context.Categories.ToList();
+            }
         }
 
         public List<Category> GetFeaturedCategories()
         {
-            return context.Categories.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
+            using (var context = new CContext())
+            {
+                return context.Categories.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
+            }
         }
 
         public Category Edit(int ID)
         {
-            using (context)
+            using (var context = new CContext())
             {
                 return context.Categories.ToList().SingleOrDefault(x => x.ID == ID);
             }
@@ -33,7 +48,7 @@ namespace com.services
 
         public void SaveCategory(Category category)
         {
-            using (context)
+            using (var context = new CContext())
             {
                 context.Categories.Add(category);
                 context.SaveChanges();
@@ -42,7 +57,7 @@ namespace com.services
 
         public void updateCategory(Category category)
         {
-            using (context)
+            using (var context = new CContext())
             {
                 context.Entry(category).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
@@ -51,9 +66,12 @@ namespace com.services
 
         public void Delete(int id)
         {
-            var catId = context.Categories.Single(x => x.ID == id);
-            context.Categories.Remove(catId);
-            context.SaveChanges();
+            using (var context = new CContext())
+            {
+                var catId = context.Categories.Single(x => x.ID == id);
+                context.Categories.Remove(catId);
+                context.SaveChanges();
+            }
         }
     }
 }
