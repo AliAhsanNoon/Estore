@@ -11,7 +11,6 @@ namespace com.web.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly bool success = true;
 
         ProductService productService = new ProductService();
         CategoryService category = new CategoryService();
@@ -28,7 +27,7 @@ namespace com.web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ProductViewModels viewModel)
+        public ActionResult Create(NewProductViewModels viewModel)
         {
             var pinDB = new Product();
 
@@ -50,7 +49,7 @@ namespace com.web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(ProductViewModels productVM)
+        public ActionResult Edit(UpdateProductViewModels productVM)
         {
             var _product = productService.GetProduct(productVM.ID);
             _product.ID = productVM.ID;

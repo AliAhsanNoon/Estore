@@ -12,6 +12,7 @@ namespace com.web.Controllers
     {
         CategoryService categoryService = new CategoryService();
         ProductService productService = new ProductService();
+
         public ActionResult Index()
         {
             var featuredCat = categoryService.GetFeaturedCategories();
@@ -40,5 +41,6 @@ namespace com.web.Controllers
 
             return View();
         }
+
     }
 }
