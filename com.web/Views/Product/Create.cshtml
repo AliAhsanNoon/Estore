@@ -1,4 +1,4 @@
-﻿@model List<com.Entities.Category>
+﻿@model com.web.ViewModels.NewProductViewModels
 @{ViewBag.Title = "Create";}
 
 <div class="modal-body">
@@ -7,10 +7,11 @@
             Create Product
         </h2>
     </div>
+
     <div class="row">
         <div class="col-md-6">
-            <form id="createProductForm">
 
+            <form id="createProductForm">
 
                 <div class="form-group">
                     <label for="Name" class="control-label">Name</label>
@@ -27,14 +28,14 @@
                     <textarea rows="3" class="form-control" placeholder="Product Description" name="Description"></textarea>
                 </div>
 
-                <select class="form-control" name="Category_ID">
+                <select class="form-control" name="CategoryID">
                     <option value="SelectCategory">SelectCategory</option>
-                    @foreach (var item in Model)
-                    {
+                    @foreach (var item in Model.CategoryList)
+                     {
                         <option value="@item.ID">@item.Name</option>
-                    }
+                     }
                 </select>
-                <br />
+                
                 <div class="form-group">
                     <input type="file" id="imageUpload" class="form-control" name="Image" accept=".png, .jpg" />
                     <input name="imageUrl" id="imageUrl" type="hidden" />
@@ -56,14 +57,16 @@
                     <button type="button" id="saveproduct" class="btn btn-primary">Submit</button>
                 </div>
             </form>
+
         </div>
 
         <div class="col-md-6">
-            <div class="card">
-                <div class="col-md-8 text-center">
-                    <img id="categoryImage" src="~/Content/images/noOne.png" class="img-thumbnail img-fluid " />
+                <div class="card">
+                    <div class="col-md-8 text-center">
+                        <img id="categoryImage" src="~/Content/images/noOne.png" class="img-thumbnail img-fluid " />
+                    </div>
                 </div>
-            </div>
         </div>
+
     </div>
 </div>

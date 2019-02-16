@@ -23,28 +23,43 @@ namespace com.web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return PartialView(category.GetCategories());
+            var _viewModel = new NewProductViewModels
+            {
+                CategoryList = category.GetCategories()
+            };
+
+            return PartialView(_viewModel);
         }
 
         [HttpPost]
         public ActionResult Create(NewProductViewModels viewModel)
         {
-            var pinDB = new Product();
+            var newProduct = new Product();
 
-            pinDB.Name = viewModel.Name;
-            pinDB.Description = viewModel.Description;
-            pinDB.Price = viewModel.Price;
-            pinDB.Category = category.Edit(viewModel.Category_ID);
-            pinDB.isFeatured = viewModel.isFeatured;
-            pinDB.ImageURL = viewModel.ImageURL;
-            productService.SaveProducts(pinDB);
+            newProduct.Name = viewModel.Name;
+            newProduct.Description = viewModel.Description;
+            newProduct.Price = viewModel.Price;
+            newProduct.Category = category.Edit(viewModel.CategoryID);
+            newProduct.isFeatured = viewModel.isFeatured;
+            newProduct.ImageURL = viewModel.ImageURL;
+            productService.SaveProducts(newProduct);
+
             return RedirectToAction("ProductTable");
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var editModel = productService.GetProduct(id);
+            var prod = productService.GetProduct(id);
+            UpdateProductViewModels editModel = new UpdateProductViewModels ();
+            editModel.ID = prod.ID;
+            editModel.Name = prod.Name;
+            editModel.Description = prod.Description;
+            editModel.Price = prod.Price;
+            editModel.CategoryID = prod.Category != null ? prod.Category.ID : 0;
+            editModel.CategoryList = category.GetCategories();
+            editModel.ImageURL = prod.ImageURL;
+            editModel.isFeatured = prod.isFeatured;
             return PartialView(editModel);
         }
 
@@ -57,6 +72,8 @@ namespace com.web.Controllers
             _product.Description = productVM.Description;
             _product.isFeatured = productVM.isFeatured;
             _product.ImageURL = productVM.ImageURL;
+            _product.Category = null;
+            _product.CategoryID = productVM.CategoryID;
             productService.UpdateProducts(_product);
             return RedirectToAction("ProductTable");
         }

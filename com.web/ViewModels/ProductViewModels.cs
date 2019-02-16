@@ -8,7 +8,7 @@ namespace com.web.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public int Category_ID { get; set; }
+        public int CategoryID { get; set; }
         public bool isFeatured { get; set; }
         public string ImageURL { get; set; }
         public List<Category> CategoryList { get; set; }
@@ -20,7 +20,7 @@ namespace com.web.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public int Category_ID { get; set; }
+        public int CategoryID { get; set; }
         public bool isFeatured { get; set; }
         public string ImageURL { get; set; }
         public List<Category> CategoryList { get; set; }

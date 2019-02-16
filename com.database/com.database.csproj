@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201902150906432_AddEStoreConfigurationsTbl.Designer.cs">
       <DependentUpon>201902150906432_AddEStoreConfigurationsTbl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902161354017_UpdatedProductEntity.cs" />
+    <Compile Include="Migrations\201902161354017_UpdatedProductEntity.Designer.cs">
+      <DependentUpon>201902161354017_UpdatedProductEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -104,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902150906432_AddEStoreConfigurationsTbl.resx">
       <DependentUpon>201902150906432_AddEStoreConfigurationsTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161354017_UpdatedProductEntity.resx">
+      <DependentUpon>201902161354017_UpdatedProductEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
