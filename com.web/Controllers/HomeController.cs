@@ -10,17 +10,16 @@ namespace com.web.Controllers
 {
     public class HomeController : Controller
     {
-        ProductService productService = new ProductService();
         public ActionResult Index()
         {
             var featuredCat = CategoryService.Instance.GetFeaturedCategories();
-            var newPro =   productService.NewProduct();
-            var newProdx = productService.NewProductx();
+            var newPro = ProductService.Instance.NewProduct();
+            var newProdx = ProductService.Instance.NewProductx();
             var _homeViewModel = new HomeViewModel
             {
                 FeaturedCategories = featuredCat,
-                NewProducts = newPro,
-                NewProductx = newProdx
+               // NewProducts = newPro,
+               // NewProductx = newProdx
             };
             
             return View(_homeViewModel);

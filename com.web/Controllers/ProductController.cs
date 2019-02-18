@@ -11,8 +11,6 @@ namespace com.web.Controllers
 {
     public class ProductController : Controller
     {
-        ProductService productService = new ProductService();
-
         public ActionResult Index()
         {
             return View();
@@ -40,7 +38,7 @@ namespace com.web.Controllers
             newProduct.Category = CategoryService.Instance.Edit(viewModel.CategoryID);
             newProduct.isFeatured = viewModel.isFeatured;
             newProduct.ImageURL = viewModel.ImageURL;
-            productService.SaveProducts(newProduct);
+            ProductService.Instance.SaveProducts(newProduct);
 
             return RedirectToAction("ProductTable");
         }
@@ -48,7 +46,7 @@ namespace com.web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var prod = productService.GetProduct(id);
+            var prod = ProductService.Instance.GetProduct(id);
             UpdateProductViewModels editModel = new UpdateProductViewModels ();
             editModel.ID = prod.ID;
             editModel.Name = prod.Name;
@@ -64,7 +62,7 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult Edit(UpdateProductViewModels productVM)
         {
-             var _product = productService.GetProduct(productVM.ID);
+             var _product = ProductService.Instance.GetProduct(productVM.ID);
             _product.ID = productVM.ID;
             _product.Name = productVM.Name;
             _product.Description = productVM.Description;
@@ -72,21 +70,20 @@ namespace com.web.Controllers
             _product.ImageURL = productVM.ImageURL;
             _product.Category = null;
             _product.Category = CategoryService.Instance.Edit(productVM.CategoryID);
-            productService.UpdateProducts(_product);
+            ProductService.Instance.UpdateProducts(_product);
             return RedirectToAction("ProductTable");
         }
 
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            //var del = productService.GetProduct(id);
-            productService.DeleteProducts(id);
+            ProductService.Instance.DeleteProducts(id);
             return RedirectToAction("ProductTable");
         }
 
         public ActionResult ProductTable()
         {
-            var products = productService.GetProducts();
+            var products = ProductService.Instance.GetProducts();
 
             return PartialView(products);
         }
