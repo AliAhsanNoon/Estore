@@ -4,6 +4,7 @@ using com.web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,8 +27,13 @@ namespace com.web.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
-            CategoryService.Instance.SaveCategory(category);
-            return RedirectToAction("CategoryTable");
+            if (!ModelState.IsValid)
+            {
+                CategoryService.Instance.SaveCategory(category);
+                return RedirectToAction("CategoryTable");
+            }
+            else
+                return new HttpStatusCodeResult(500);
         }
 
         [HttpGet]

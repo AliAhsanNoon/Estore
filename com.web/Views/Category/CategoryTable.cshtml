@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "CategoryTable";
 }
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
 <div class="modal-body">
     <div id="cMgm" class="title-section">
@@ -45,6 +45,23 @@
 </div>
 <script type="text/javascript">
 
+    /* --------- JQuery Validations --------- */
+
+    //$('body','#saveCategory').validate({
+    //    rules: {
+    //        name: {
+    //            required: true,
+    //            minlength: 3,
+    //            maxlength: 50
+    //        }
+    //    },
+    //    messages: {
+    //        name : "Please Provide tha CategoryName"
+    //    }
+    //});
+    /* --------- JQuery Validations Ends Here --------- */
+
+
     /* ---------    Add New Category Section    --------- */
     $("body").on("click", "#createNew", function () {
         $.ajax({
@@ -58,18 +75,23 @@
         }).fail(function () { alert('Fail'); });
     });
 
+
+
     $("body").on("click", "#addNewCat", function () {
-        $.ajax({
-            url: '@Url.Action("Create","Category")',
-            type: 'POST',
-            data: $("#saveCategory").serialize()
-        }).done(function (response) {
-            $("#tableConatiner").html(response);
-            $("#actionContainer").html("");
-            $('html, body').animate({
-                scrollTop: ($('#cMgm').offset().top)
-            }, 1000);
-        })
+        
+        if ($('#saveCategory').valid()) {
+            $.ajax({
+                url: '@Url.Action("Create","Category")',
+                type: 'POST',
+                data: $("#saveCategory").serialize()
+            }).done(function (response) {
+                $("#tableConatiner").html(response);
+                $("#actionContainer").html("");
+                $('html, body').animate({
+                    scrollTop: ($('#cMgm').offset().top)
+                }, 1000);
+            });
+        }
     });
 
     /* ---------    Add New Category Section Ends Here  --------- */
