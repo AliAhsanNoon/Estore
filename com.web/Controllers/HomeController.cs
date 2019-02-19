@@ -14,8 +14,8 @@ namespace com.web.Controllers
             var _homeViewModel = new HomeViewModel
             {
                 FeaturedCategories = featuredCat,
-               // NewProducts = newPro,
-               // NewProductx = newProdx
+                NewProducts = newPro,
+                NewProductx = newProdx
             };
             
             return View(_homeViewModel);

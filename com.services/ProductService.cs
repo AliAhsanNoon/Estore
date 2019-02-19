@@ -50,7 +50,11 @@ namespace com.services
         {
             using (var context = new CContext())
             {
-                return context.Products.OrderByDescending(x=> x.ID ).Where(x=> x.ImageURL != null).Take(4).ToList();
+                return context.Products
+                       .OrderByDescending(x=> x.ID )
+                       .Where(x=> x.ImageURL != null)
+                       .Take(4)
+                       .ToList();
             }
         }
 
