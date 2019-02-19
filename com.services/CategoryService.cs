@@ -23,7 +23,7 @@ namespace com.services
 
         }
 
-        public int GetTotalItem(int pageNo)
+        public int GetTotalItem()
         {
             using (var _context = new CContext())
             {

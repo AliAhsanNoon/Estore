@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201902161836246_UpdatedProductEntity1.Designer.cs">
       <DependentUpon>201902161836246_UpdatedProductEntity1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902191458123_AddedDataAnnotations.cs" />
+    <Compile Include="Migrations\201902191458123_AddedDataAnnotations.Designer.cs">
+      <DependentUpon>201902191458123_AddedDataAnnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -118,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902161836246_UpdatedProductEntity1.resx">
       <DependentUpon>201902161836246_UpdatedProductEntity1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902191458123_AddedDataAnnotations.resx">
+      <DependentUpon>201902191458123_AddedDataAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

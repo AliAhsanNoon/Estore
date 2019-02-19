@@ -53,7 +53,7 @@ namespace com.web.Controllers
         public ActionResult CategoryTable(int? pageNo)
         {
             pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
-            var totalRecords = CategoryService.Instance.GetTotalItem(pageNo.Value);
+            var totalRecords = CategoryService.Instance.GetTotalItem();
 
             if(CategoryService.Instance.GetCategories() != null)
             {
