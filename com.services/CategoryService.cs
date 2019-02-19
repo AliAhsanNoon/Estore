@@ -15,11 +15,32 @@ namespace com.services
                 return instance;
             }
         }
+
         private static CategoryService instance {get;set;}
         
         private CategoryService()
         {
 
+        }
+
+        public int GetTotalItem(int pageNo)
+        {
+            using (var _context = new CContext())
+            {
+                return _context.Categories.Count()
+;
+            }
+        }
+
+        public List<Category> GetListSize(int pageNo)
+        {
+            int pageSize = 3;
+            using (var _context = new CContext())
+            {
+                return _context.Categories.OrderBy(x => x.ID)
+                            .Skip((pageNo - 1) * pageSize)
+                            .Take(pageSize).ToList();
+            }
         }
 
         public List<Category> GetCategories()
@@ -34,7 +55,9 @@ namespace com.services
         {
             using (var context = new CContext())
             {
-                return context.Categories.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
+                return context.Categories
+                    .Where(x => x.isFeatured == true && x.ImageURL != null)
+                    .Take(3).ToList();
             }
         }
 

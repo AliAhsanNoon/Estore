@@ -1,5 +1,6 @@
 ﻿using com.Entities;
 using com.services;
+using com.web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,8 +50,16 @@ namespace com.web.Controllers
                 return RedirectToAction("CategoryTable");
         }
 
-        public ActionResult CategoryTable()
+        public ActionResult CategoryTable(int? pageNo)
         {
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            var totalRecords = CategoryService.Instance.GetTotalItem(pageNo.Value);
+
+            if(CategoryService.Instance.GetCategories() != null)
+            {
+                var pager = new Pager(totalRecords, pageNo, 3);
+            }
+
             var cat = CategoryService.Instance.GetCategories();
             return PartialView(cat); 
         }
