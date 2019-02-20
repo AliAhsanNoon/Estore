@@ -29,6 +29,19 @@ namespace com.services
             }
         }
 
+        public List<Product> GetProducts(int pageNo, int productList)
+        {
+            int pageSize = 3; 
+            using (var _context = new CContext())
+            {
+                //return context.Products.Include(x => x.Category).ToList();
+                return _context.Products.OrderBy(x => x.ID)
+                            .Skip((pageNo - 1) * pageSize)
+                            .Include(x => x.Category)
+                            .Take(productList).ToList();
+            }
+        }
+
         public List<Product> GetProducts (List<int> pId)
         {
             using (var context = new CContext())
@@ -53,6 +66,7 @@ namespace com.services
                 return context.Products
                        .OrderByDescending(x=> x.ID )
                        .Where(x=> x.ImageURL != null)
+                       .Include(x=> x.Category)
                        .Take(4)
                        .ToList();
             }

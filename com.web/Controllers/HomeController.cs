@@ -8,17 +8,12 @@ namespace com.web.Controllers
     {
         public ActionResult Index()
         {
-            var featuredCat = CategoryService.Instance.GetFeaturedCategories();
-            var newPro = ProductService.Instance.NewProduct();
-            var newProdx = ProductService.Instance.NewProductx();
-            var _homeViewModel = new HomeViewModel
+            var _model = new HomeViewModel
             {
-                FeaturedCategories = featuredCat,
-                NewProducts = newPro,
-                NewProductx = newProdx
+                FeaturedCategories = CategoryService.Instance.GetFeaturedCategories(),
+
             };
-            
-            return View(_homeViewModel);
+            return View(_model);
         }
 
         public ActionResult About()
