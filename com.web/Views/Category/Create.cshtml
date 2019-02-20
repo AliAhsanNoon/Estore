@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Description" name="Description" />
+                    <textarea rows="3" class="form-control" type="text" placeholder="Description" name="Description"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -56,7 +56,7 @@
         rules: {
             Name: {
                 required: true,
-                minlength: 5,
+                minlength: 3,
                 maxlength: 50,
             },
             Description: {
@@ -65,9 +65,9 @@
         },
         messages: {
             Name: {
-                required: 'Name is required',
-                minlength: 'Minimum Length is 5',
-                maxlength: 'Maximum Length is 50'
+                required: "<span class='text-danger'>Name is required</span>",
+                minlength: "<span class='text-danger'>Minimum Length is 3 </span>",
+                maxlength: "<span class='text-danger'>Maximum Length is 50</span>"
             },
             Description: {
                 maxlength: 'Maximum Length is 500'

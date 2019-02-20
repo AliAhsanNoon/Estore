@@ -61,29 +61,30 @@
 
     /* ------------ Add New Product Section ------------ */
     $('body').on('click', '#addNewProduct', function () {
-        $.ajax({
-            url: '@Url.Action("Create","Product")',
-            type: 'GET'
-        }).done(function (res) {
-            $('#actionContainer').html(res);
-            $('html, body').animate({
-                scrollTop: ($('#cProduct').offset().top)
-            }, 1000);
-        }).fail(function () { alert('Failed'); });
+            $.ajax({
+                url: '@Url.Action("Create","Product")',
+                type: 'GET'
+            }).done(function (res) {
+                $('#actionContainer').html(res);
+                $('html, body').animate({
+                    scrollTop: ($('#createProductForm').offset().top)
+                }, 1000);
+            }).fail(function () { alert('Failed'); });
     });
     
     $('body').on('click', '#saveproduct', function () {
-        $.ajax({
-            url: '@Url.Action("Create","Product")',
-            type: 'POST',
-            data: $('#createProductForm').serialize()
-        }).done(function (res) {
-            $('#tableContainer').html(res);
-            $('#actionContainer').html("");
-            $('html, body').animate({
-                scrollTop: ($('#pMgm').offset().top)
-            }, 1000);
-        }).fail(function () { alert('Failed'); });
+        if ($('#createProductForm').valid()) 
+        {
+            $.ajax({
+                url: '@Url.Action("Create","Product")',
+                type: 'POST',
+                data: $('#createProductForm').serialize()
+            }).done(function (res) {
+                    $('#tableContainer').html(res);
+                    $('#actionContainer').html("");
+                    $('html, body').animate({ scrollTop: ($('#pMgm').offset().top)}, 1000);
+            }).fail(function () { alert('Failed'); });
+        }
     });
     /* ------------ Add New Product Section Ends Here ------------ */
 
@@ -118,7 +119,7 @@
 
     /* ------------ Delete Product Section ------------ */
     $('body').on('click', '.deleteProductBtn', function () {
-                swal({
+        swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this product record!",
             icon: "warning",

@@ -45,23 +45,6 @@
 </div>
 <script type="text/javascript">
 
-    /* --------- JQuery Validations --------- */
-
-    //$('body','#saveCategory').validate({
-    //    rules: {
-    //        name: {
-    //            required: true,
-    //            minlength: 3,
-    //            maxlength: 50
-    //        }
-    //    },
-    //    messages: {
-    //        name : "Please Provide tha CategoryName"
-    //    }
-    //});
-    /* --------- JQuery Validations Ends Here --------- */
-
-
     /* ---------    Add New Category Section    --------- */
     $("body").on("click", "#createNew", function () {
         $.ajax({
@@ -75,11 +58,10 @@
         }).fail(function () { alert('Fail'); });
     });
 
-
-
     $("body").on("click", "#addNewCat", function () {
         
-        if ($('#saveCategory').valid()) {
+        if ($('#saveCategory').valid())
+        {
             $.ajax({
                 url: '@Url.Action("Create","Category")',
                 type: 'POST',
@@ -96,6 +78,7 @@
 
     /* ---------    Add New Category Section Ends Here  --------- */
 
+
     /* ---------    Edit Category Section    --------- */
     $("body").on("click", "._editBtn", function () {
         $.ajax({ url: '@Url.Action("Edit","Category")/' + $(this).attr('data-id'), type: 'GET' })
@@ -107,18 +90,22 @@
             }).fail(function () { alert('Request Failed'); });
     });
 
-    $("body").on("click", "#updateCat", function () {
-        $.ajax({
+    $("body").on("click", "#updateCat", function ()
+    {
+        if ($('#updateCategoryForm').valid())
+        {
+            $.ajax({
             url: '@Url.Action("Edit","Category")',
             data: $('#updateCategoryForm').serialize(),
             type: 'POST'
-        }).done(function (response) {
-            $("#tableConatiner").html(response);
-            $("#actionContainer").html("");
-            $('html, body').animate({
-                scrollTop: ($('#cMgm').offset().top)
-            }, 1000);
-        }).fail(function () { alert('Request Failed'); });
+            }).done(function (response) {
+                $("#tableConatiner").html(response);
+                $("#actionContainer").html("");
+                $('html, body').animate({
+                    scrollTop: ($('#cMgm').offset().top)
+                }, 1000);
+            }).fail(function () { alert('Request Failed'); });
+        }
     });
     /* ---------    Edit Category Section Ends Here  --------- */
 

@@ -70,3 +70,44 @@
 
     </div>
 </div>
+<script>
+    $('#createProductForm').validate({
+        rules:
+        {
+            Name: {
+                required: true,
+                minlength: 3,
+                maxlength: 50,
+            },
+            Price: {
+                required: true,
+                Range : 1-10000
+            },
+            CategoryID: {
+                required: true,
+            },
+            Description: {
+                maxlength: 500
+            }
+        },
+        messages:
+        {
+            Name: {
+                required: "<span class='text-danger'>Name is required</span>",
+                minlength: "<span class='text-danger'>Minimum Length is 3 </span>",
+                maxlength: "<span class='text-danger'>Maximum Length is 50</span>"
+            },
+            Price:
+            {
+                required: "<span class= 'text-danger' > Price is required</span>"
+            },
+            CategoryID:
+            {
+                required: "<span class= 'text-danger' > Please Select Category</span>"
+            },
+            Description: {
+                maxlength: "<span class='text-danger'>Maximum Length is 500</span>"
+            }
+        }
+    });
+</script>
