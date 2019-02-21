@@ -7,10 +7,14 @@ namespace com.web.Controllers
 {
     public class ShopController : Controller
     {
-        CheckOutViewModel viewModel = new CheckOutViewModel();
+       public ActionResult Index(string SearchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+       {
+            return View();
+       }
 
         public ActionResult CheckOut()
         {
+            CheckOutViewModel viewModel = new CheckOutViewModel();
             var productCookie = Request.Cookies["ProductsCart"].Value;
             if(productCookie != null)
             {
