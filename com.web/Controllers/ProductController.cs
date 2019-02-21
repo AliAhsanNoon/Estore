@@ -88,5 +88,14 @@ namespace com.web.Controllers
             return PartialView(products);
         }
 
+        [HttpGet]
+        public ActionResult Details(int ID)
+        {
+            var _model = new ProductViewModels
+            {
+                Product = ProductService.Instance.GetProduct(ID)
+            };
+            return View(_model);
+        }
     }
 }

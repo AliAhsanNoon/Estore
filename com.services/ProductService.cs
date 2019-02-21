@@ -34,11 +34,18 @@ namespace com.services
             int pageSize = 3; 
             using (var _context = new CContext())
             {
-                //return context.Products.Include(x => x.Category).ToList();
                 return _context.Products.OrderBy(x => x.ID)
                             .Skip((pageNo - 1) * pageSize)
                             .Include(x => x.Category)
                             .Take(productList).ToList();
+            }
+        }
+
+        public List<Product> RelatedProducts(int categoryID)
+        {
+            using (var _context = new CContext())
+            {
+                return _context.Products.Where( x => x.Category.ID == categoryID ).OrderBy(x => x.ID).Take(4).ToList();
             }
         }
 
@@ -55,7 +62,6 @@ namespace com.services
             using (var context = new CContext())
             {
                 return context.Products.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
-
             }
         }
 
@@ -94,9 +100,9 @@ namespace com.services
         {
             using (var context = new CContext())
             {
-            context.Entry(product).State = EntityState.Unchanged;
-            context.Products.Add(product);
-            context.SaveChanges();
+                context.Entry(product).State = EntityState.Unchanged;
+                context.Products.Add(product);
+                context.SaveChanges();
             }
         }
 
