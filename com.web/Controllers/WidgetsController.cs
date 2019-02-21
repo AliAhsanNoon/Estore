@@ -14,6 +14,7 @@ namespace com.web.Controllers
         {
             var _model = new ProductWidgetViewModel();
             _model.isLatestProduct = isLatestProduct;
+            _model.CategoryID = categoryID.Value;
             if (isLatestProduct)
             {
                 _model.Products = ProductService.Instance.NewProduct();

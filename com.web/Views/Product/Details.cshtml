@@ -1,131 +1,129 @@
 ﻿@model com.web.ViewModels.ProductViewModels 
+
+@if (Model != null && Model.Product != null)
+ {
+
    	<!-- Page title -->
-<div class="page-title parallax parallax1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="page-title-heading">
-                    <h1 class="title">@Model.Product.Name</h1>
-                </div><!-- /.page-title-heading -->
-                <div class="breadcrumbs">
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop-3col.html">Shop</a></li>
-                        <li><a href="shop-detail-des.html">Products</a></li>
-                    </ul>
-                </div><!-- /.breadcrumbs -->
-            </div><!-- /.col-md-12 -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</div><!-- /.page-title -->
+    <div class="page-title parallax parallax1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-title-heading">
+                        <h1 class="title">@Model.Product.Name</h1>
+                    </div><!-- /.page-title-heading -->
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="shop-3col.html">Shop</a></li>
+                            <li><a href="shop-detail-des.html">Products</a></li>
+                        </ul>
+                    </div><!-- /.breadcrumbs -->
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.page-title -->
 
-<section class="flat-row main-shop shop-detail">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="wrap-flexslider">
-                    <div class="inner">
-                        <div class="flexslider style-1 has-relative">
-                            <ul class="slides">
-                                <li data-thumb="@Model.Product.ImageURL">
-                                    <img src="@Model.Product.ImageURL" alt="Image">
-                                    <div class="flat-icon style-1">
-                                        <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                    </div>
-                                </li>
-                                <li data-thumb="images/shop/sh-detail/thumb-detail-02.jpg">
-                                    <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                    <div class="flat-icon style-1">
-                                        <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div><!-- /.flexslider -->
-                    </div>
-                </div>
-            </div><!-- /.col-md-6 -->
-
-            <div class="col-md-6">
-                <div class="product-detail">
-                    <div class="inner">
-                        <div class="content-detail">
-                            <h2 class="product-title">@Model.Product.Name</h2>
-                            <div class="flat-star style-1">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                                <i class="fa fa-star-half-o"></i>
-                                <span>(1)</span>
-                            </div>
-                            <p> @Model.Product.Description </p>
-                            <div class="price">
-                                <ins><span class="amount">$@Model.Product.Price</span></ins>
-                            </div>
-                            <div class="size">
-                                <span>Size:</span>
-                                <ul>
-                                    <li><a href="#">L</a></li>
-                                    <li><a href="#">M</a></li>
-                                    <li><a href="#">S</a></li>
-                                    <li><a href="#">XL</a></li>
-                                    <li><a href="#">XXL</a></li>
-                                    <li><a href="#">Over Size</a></li>
+    <section class="flat-row main-shop shop-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="wrap-flexslider">
+                        <div class="inner">
+                            <div class="flexslider style-1 has-relative">
+                                <ul class="slides">
+                                    <li data-thumb="@Model.Product.ImageURL">
+                                        <img src="@Model.Product.ImageURL" alt="Image">
+                                        <div class="flat-icon style-1">
+                                            <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                        </div>
+                                    </li>
                                 </ul>
-                            </div>
-                            <div class="product-color">
-                                <span>Colors:</span>
-                                <ul class="flat-color-list">
-                                    <li><a href="#" class="yellow"></a></li>
-                                    <li><a href="#" class="pink"> </a></li>
-                                    <li><a href="#" class="red"></a></li>
-                                    <li><a href="#" class="black"></a></li>
-                                    <li><a href="#" class="blue"></a></li>
-                                    <li><a href="#" class="khaki"></a></li>
-                                </ul>
-                            </div>
-                            <ul class="product-infor style-1">
-                                <li><span>100% cotton</span></li>
-                                <li><span>6 months warranty</span></li>
-                                <li><span>High Quality</span></li>
-                            </ul>
-                            <div class="product-quantity">
-                                <div class="quantity">
-                                    <input type="text" value="1" name="quantity-number" class="quantity-number">
-                                    <span class="inc quantity-button">+</span>
-                                    <span class="dec quantity-button">-</span>
-                                </div>
-                                <div class="add-to-cart">
-                                    <a href="#">ADD TO CART</a>
-                                </div>
-                                <div class="box-like">
-                                    <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-categories">
-                                <span>Categories: </span><a href="#">@Model.Product.Category.Name</a>
-                            </div>
-                            <div class="product-tags">
-                                <span>Tags: </span><a href="#">Dress,</a> <a href="#">Fashion,</a> <a href="#">Furniture,</a> <a href="#">Lookbok</a>
-                            </div>
-                            <ul class="flat-socials">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
+                            </div><!-- /.flexslider -->
                         </div>
                     </div>
-                </div><!-- /.product-detail -->
-            </div>
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</section><!-- /.flat-row -->
+                </div><!-- /.col-md-6 -->
 
-<section class="flat-row shop-detail-content">
-    <div class="container">
-        <div class="row">
+                <div class="col-md-6">
+                    <div class="product-detail">
+                        <div class="inner">
+                            <div class="content-detail">
+                                <h2 class="product-title">@Model.Product.Name</h2>
+                                <div class="flat-star style-1">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <span>(1)</span>
+                                </div>
+                                <p> @Model.Product.Description </p>
+                                <div class="price">
+                                    <ins><span class="amount">$@Model.Product.Price</span></ins>
+                                </div>
+                                <div class="size">
+                                    <span>Size:</span>
+                                    <ul>
+                                        <li><a href="#">L</a></li>
+                                        <li><a href="#">M</a></li>
+                                        <li><a href="#">S</a></li>
+                                        <li><a href="#">XL</a></li>
+                                        <li><a href="#">XXL</a></li>
+                                        <li><a href="#">Over Size</a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-color">
+                                    <span>Colors:</span>
+                                    <ul class="flat-color-list">
+                                        <li><a href="#" class="yellow"></a></li>
+                                        <li><a href="#" class="pink"> </a></li>
+                                        <li><a href="#" class="red"></a></li>
+                                        <li><a href="#" class="black"></a></li>
+                                        <li><a href="#" class="blue"></a></li>
+                                        <li><a href="#" class="khaki"></a></li>
+                                    </ul>
+                                </div>
+                                <ul class="product-infor style-1">
+                                    <li><span>100% cotton</span></li>
+                                    <li><span>6 months warranty</span></li>
+                                    <li><span>High Quality</span></li>
+                                </ul>
+                                <div class="product-quantity">
+                                    <div class="quantity">
+                                        <input type="text" value="1" name="quantity-number" class="quantity-number">
+                                        <span class="inc quantity-button">+</span>
+                                        <span class="dec quantity-button">-</span>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a href="#">ADD TO CART</a>
+                                    </div>
+                                    <div class="box-like">
+                                        <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product-categories">
+                                    <span>Categories: </span><a href="#">@Model.Product.Category.Name</a>
+                                </div>
+                                <div class="product-tags">
+                                    <span>Tags: </span><a href="#">Dress,</a> <a href="#">Fashion,</a> <a href="#">Furniture,</a> <a href="#">Lookbok</a>
+                                </div>
+                                <ul class="flat-socials">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- /.product-detail -->
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.flat-row -->
+
+    <section class="flat-row shop-detail-content">
+        <div class="container">
+            <div class="row">
             <div class="col-md-12">
                 <div class="flat-tabs style-1 has-border">
                     <div class="inner">
@@ -302,126 +300,19 @@
             </div>
         </div>
     </div>
-</section><!-- /.shop-detail-content -->
+    </section><!-- /.shop-detail-content -->
 
-<section class="flat-row shop-related">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="title-section margin-bottom-55">
-                    <h2 class="title">Related Products</h2>
+    <section class="flat-row shop-related">
+            <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-section margin-bottom-55">
+                        <h2 class="title">Related Products</h2>
+                    </div>
+                    @{ Html.RenderAction("Products", "Widgets", new { isLatestProduct = false, categoryID = Model.Product.Category.ID }); } 
+                    <!-- /.product-content -->
                 </div>
-
-                @* { Html.RenderAction("Product", "Widgets"); } *@
-                @* Remove Below Section *@
-                <div class="product-content product-fourcolumn clearfix">
-                    <ul class="product style2">
-                        <li class="product-item">
-                            <div class="product-thumb clearfix">
-                                <a href="#">
-                                    <img src="images/shop/sh-4/1.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
-                                <div class="price">
-                                    <ins>
-                                        <span class="amount">$19.00</span>
-                                    </ins>
-                                </div>
-                                <ul class="flat-color-list">
-                                    <li>
-                                        <a href="#" class="red"></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="blue"></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="black"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="add-to-cart text-center">
-                                <a href="#">ADD TO CART</a>
-                            </div>
-                            <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                        </li>
-                        <li class="product-item">
-                            <div class="product-thumb clearfix">
-                                <a href="#">
-                                    <img src="images/shop/sh-4/2.jpg" alt="image">
-                                </a>
-                                <span class="new">New</span>
-                            </div>
-                            <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
-                                <div class="price">
-                                    <ins>
-                                        <span class="amount">$10.00</span>
-                                    </ins>
-                                </div>
-                            </div>
-                            <div class="add-to-cart text-center">
-                                <a href="#">ADD TO CART</a>
-                            </div>
-                            <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                        </li>
-                        <li class="product-item">
-                            <div class="product-thumb clearfix">
-                                <a href="#" class="product-thumb">
-                                    <img src="images/shop/sh-4/3.jpg" alt="image">
-                                </a>
-                            </div>
-                            <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
-                                <div class="price">
-                                    <ins>
-                                        <span class="amount">$20.00</span>
-                                    </ins>
-                                </div>
-                            </div>
-                            <div class="add-to-cart text-center">
-                                <a href="#">ADD TO CART</a>
-                            </div>
-                            <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                        </li>
-                        <li class="product-item">
-                            <div class="product-thumb clearfix">
-                                <a href="#" class="product-thumb">
-                                    <img src="images/shop/sh-4/4.jpg" alt="image">
-                                </a>
-                                <span class="new sale">Sale</span>
-                            </div>
-                            <div class="product-info clearfix">
-                                <span class="product-title">Cotton White Underweaer Block Out Edition</span>
-                                <div class="price">
-                                    <del>
-                                        <span class="regular">$90.00</span>
-                                    </del>
-                                    <ins>
-                                        <span class="amount">$60.00</span>
-                                    </ins>
-                                </div>
-                                <ul class="flat-color-list">
-                                    <li>
-                                        <a href="#" class="red"></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="blue"></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="black"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="add-to-cart text-center">
-                                <a href="#">ADD TO CART</a>
-                            </div>
-                            <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                        </li>
-                    </ul><!-- /.product -->
-                </div><!-- /.product-content -->
-            </div>
-        </div><!-- /.row -->
-    </div>
-</section>
+            </div><!-- /.row -->
+        </div>
+    </section>
+ }

@@ -29,6 +29,27 @@ namespace com.services
             }
         }
 
+        public List<Product> NewProduct()
+        {
+            using (var context = new CContext())
+            {
+                return context.Products
+                       .OrderByDescending(x => x.ID)
+                       .Where(x => x.ImageURL != null)
+                       .Include(x => x.Category)
+                       .Take(4)
+                       .ToList();
+            }
+        }
+
+        public Product GetProduct(int id)
+        {
+            using (var context = new CContext())
+            {
+                return context.Products.Include(x => x.Category).SingleOrDefault(x => x.ID == id);
+            }
+        }
+
         public List<Product> GetProducts(int pageNo, int productList)
         {
             int pageSize = 3; 
@@ -45,7 +66,10 @@ namespace com.services
         {
             using (var _context = new CContext())
             {
-                return _context.Products.Where( x => x.Category.ID == categoryID ).OrderBy(x => x.ID).Take(4).ToList();
+                return _context.Products
+                    .Where( x => x.Category.ID == categoryID )
+                    .OrderByDescending(x => x.ID).Take(4)
+                    .Include(x => x.Category).ToList();
             }
         }
 
@@ -54,45 +78,6 @@ namespace com.services
             using (var context = new CContext())
             {
                 return context.Products.Where(x => pId.Contains(x.ID)).ToList();
-            }
-        }
-
-        public List<Product> GetFeaturedProducts()
-        {
-            using (var context = new CContext())
-            {
-                return context.Products.Where(x => x.isFeatured == true && x.ImageURL != null).Take(3).ToList();
-            }
-        }
-
-        public List<Product> NewProduct()
-        {
-            using (var context = new CContext())
-            {
-                return context.Products
-                       .OrderByDescending(x=> x.ID )
-                       .Where(x=> x.ImageURL != null)
-                       .Include(x=> x.Category)
-                       .Take(4)
-                       .ToList();
-            }
-        }
-
-        public List<Product> NewProductx()
-        {
-            using (var context = new CContext())
-            {
-
-            return context.Products.Where(x => x.ImageURL != null).Take(8).ToList();
-            }
-        }
-
-        public Product GetProduct(int id)
-        {
-            using (var context = new CContext())
-            {
-
-            return context.Products.Include(x=> x.Category).SingleOrDefault(x => x.ID == id);
             }
         }
 
@@ -123,7 +108,6 @@ namespace com.services
                 context.Products.Remove(product);
                 context.SaveChanges();
             }
-                // var pID = context.Products.Single(p => p.ID == ID);
         }
     }
 }

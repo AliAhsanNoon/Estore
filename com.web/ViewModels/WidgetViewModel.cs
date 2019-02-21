@@ -8,5 +8,6 @@ namespace com.web.ViewModels
     {
         public List<Product> Products { get; set; }
         public bool isLatestProduct { get; set; }
+        public int CategoryID { get; set; }
     }
 }
