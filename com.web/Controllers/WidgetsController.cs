@@ -13,13 +13,14 @@ namespace com.web.Controllers
         public ActionResult Products(bool isLatestProduct)
         {
             var _model = new ProductWidgetViewModel();
+            _model.isLatestProduct = isLatestProduct;
             if (isLatestProduct)
             {
                 _model.Products = ProductService.Instance.NewProduct();
             }
             else
             {
-                _model.Products = ProductService.Instance.GetProducts(1,4);
+                _model.Products = ProductService.Instance.GetProducts(1,8);
             }
             return PartialView(_model);
         }
