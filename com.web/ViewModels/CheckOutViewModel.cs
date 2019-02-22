@@ -14,7 +14,7 @@ namespace com.web.ViewModels
         public List<Product> Products { get; set; }
         public List<Category> FeaturedCategories { get; set; }
 
-        public int? MaxPrice { get; set; }
+        public int MaxPrice { get; set; }
         public int? SortBy { get; set; }
         public int? CategoryID { get; set; }
 

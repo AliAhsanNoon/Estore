@@ -21,14 +21,14 @@ namespace com.services
 
         private ProductService() { }
 
-        public List<Product> SearchProducts(string SearchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+        public List<Product> SearchProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
         {
             using (var _context = new CContext())
             {
                 var _products = _context.Products.ToList();
-                if (!string.IsNullOrEmpty(SearchTerm))
+                if (!string.IsNullOrEmpty(searchTerm))
                 {
-                    _products = _products.Where(x => x.Name.ToLower().Contains(SearchTerm.ToLower())).ToList();
+                    _products = _products.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
                 }
                 if (minPrice.HasValue)
                 {
