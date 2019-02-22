@@ -9,6 +9,12 @@ namespace com.web.Controllers
     {
        public ActionResult Index(string SearchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
        {
+            var _model = new ShopViewModel
+            {
+                MaxPrice = ProductService.Instance.GetMaxPrice(),
+                FeaturedCategories = CategoryService.Instance.GetFeaturedCategories(),
+                Products = ProductService.Instance.SearchProducts(SearchTerm, minPrice.Value, maxPrice.Value, CategoryId.Value, sortBy.Value)
+            };
             return View();
        }
 

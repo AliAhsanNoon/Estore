@@ -21,6 +21,39 @@ namespace com.services
 
         private ProductService() { }
 
+        public List<Product> SearchProducts(string SearchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+        {
+            using (var _context = new CContext())
+            {
+                var _products = _context.Products.ToList();
+                if (!string.IsNullOrEmpty(SearchTerm))
+                {
+                    _products = _products.Where(x => x.Name.ToLower().Contains(SearchTerm.ToLower())).ToList();
+                }
+                if (minPrice.HasValue)
+                {
+                    _products = _products.Where(x => x.Price >= minPrice.Value).ToList();
+                }
+                if (maxPrice.HasValue)
+                {
+                    _products = _products.Where(x => x.Price <= maxPrice.Value).ToList();
+                }
+                if (CategoryId.HasValue)
+                {
+                    _products = _products.Where(x => x.Category.ID == CategoryId.Value).ToList();
+                }
+                return _products;
+            }
+        }
+
+        public int GetMaxPrice()
+        {
+            using (var _context = new CContext())
+            {
+                return (int)(_context.Products.Max(x => x.Price));
+            }
+        }
+
         public List<Product> GetProducts()
         {
             using (var context = new CContext())
