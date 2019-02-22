@@ -25,7 +25,12 @@ namespace com.services
         {
             using (var _context = new CContext())
             {
-                var _products = _context.Products.ToList();
+                var _products = _context.Products.Include(x=>x.Category).ToList();
+
+                if (CategoryId.HasValue)
+                {
+                    _products = _products.Where(x => x.Category.ID == CategoryId.Value).ToList();
+                }
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
                     _products = _products.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
@@ -38,9 +43,27 @@ namespace com.services
                 {
                     _products = _products.Where(x => x.Price <= maxPrice.Value).ToList();
                 }
-                if (CategoryId.HasValue)
+                
+                if (sortBy.HasValue)
                 {
-                    _products = _products.Where(x => x.Category.ID == CategoryId.Value).ToList();
+                    var sort = (SortByEnum)sortBy.Value;
+                    switch (sort)
+                    {
+                        case SortByEnum.Default:
+                            _products = _products.OrderByDescending(x => x.ID).ToList();
+                            break;
+                        case SortByEnum.Popularity:
+                            break;
+                        case SortByEnum.PriceLowToHigh:
+                            _products = _products.OrderBy( x => x.Price ).ToList();
+                            break;
+                        case SortByEnum.PriceHighToLow:
+                            _products = _products.OrderByDescending(x => x.Price).ToList();
+                            break;
+                        default:
+                            _products = _products.OrderByDescending(x => x.ID).ToList();
+                            break;
+                    }
                 }
                 return _products;
             }

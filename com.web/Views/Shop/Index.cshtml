@@ -22,9 +22,9 @@
             <div class="col-md-3">
                 <div class="sidebar slidebar-shop">
                     <div class="widget widget-search">
-                        <form role="search" method="get" class="search-form" action="#">
+                        <form role="search" method="get" class="search-form" action="@Url.Action("Index","Shop")">
                             <label>
-                                <input type="search" class="search-field" placeholder="Search …" value="" name="s">
+                                <input type="search" class="search-field" placeholder="Search …" value="" name="searchTerm">
                             </label>
                             <input type="submit" class="search-submit" value="Search">
                         </form>
@@ -34,12 +34,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="#" class="active">Default</a></li>
-                            <li><a href="#">Popularity</a></li>
-                            <li><a href="#">Average rating</a></li>
-                            <li><a href="#">Newness</a></li>
-                            <li><a href="#">Price: low to high</a></li>
-                            <li><a href="#">Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "amount" : string.Empty : string.Empty  )">Default</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "amount" : string.Empty : string.Empty ) ">Popularity</a></li>
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "active" :string.Empty :string.Empty )' >Price: low to high</a></li>
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "text-danger" :string.Empty :string.Empty )' >Price: high to low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">
@@ -58,9 +56,9 @@
                         <div class="tag-list">
                             <a href="#" class="active" >Featured Categories</a>
                             @foreach (var item in Model.FeaturedCategories)
-                            {
-                                <a href="#">@item.Name</a>
-                            }
+                             {
+                                <a href="@Url.Action("Index", "Shop", new { categoryID = item.ID })"> @item.Name </a>
+                             }
 
                         </div>
                     </div><!-- /.widget -->

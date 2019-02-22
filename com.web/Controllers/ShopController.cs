@@ -10,13 +10,13 @@ namespace com.web.Controllers
        public ActionResult Index(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
        {
             ShopViewModel _model = new ShopViewModel();
-            //_model = new ShopViewModel
-            //{
+
+            _model.SortBy = sortBy;
             _model.SearchTerm = searchTerm;
             _model.MaxPrice = ProductService.Instance.GetMaxPrice();
             _model.FeaturedCategories = CategoryService.Instance.GetFeaturedCategories();
             _model.Products = ProductService.Instance.SearchProducts(searchTerm, minPrice, maxPrice, CategoryId, sortBy);
-            //};
+
             return View(_model);
        }
 
