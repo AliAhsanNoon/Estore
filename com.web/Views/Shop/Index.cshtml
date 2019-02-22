@@ -34,9 +34,9 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "amount" : string.Empty : string.Empty  )">Default</a></li>
-                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "amount" : string.Empty : string.Empty ) ">Popularity</a></li>
-                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "active" :string.Empty :string.Empty )' >Price: low to high</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "text-danger" : string.Empty : string.Empty  )">Default</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "text-danger" : string.Empty : string.Empty ) ">Popularity</a></li>
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "text-danger" :string.Empty :string.Empty )' >Price: low to high</a></li>
                             <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "text-danger" :string.Empty :string.Empty )' >Price: high to low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
