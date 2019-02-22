@@ -42,6 +42,10 @@
 
 /* Reset
 -------------------------------------------------------------- */
+
+.active-sortby {
+    color: #f63440;
+}
 	html {
 		overflow-y: scroll;
 		-webkit-text-size-adjust: 100%;

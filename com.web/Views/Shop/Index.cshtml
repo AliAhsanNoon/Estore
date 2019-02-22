@@ -34,10 +34,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "text-danger" : string.Empty : string.Empty  )">Default</a></li>
-                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "text-danger" : string.Empty : string.Empty ) ">Popularity</a></li>
-                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "text-danger" :string.Empty :string.Empty )' >Price: low to high</a></li>
-                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "text-danger" :string.Empty :string.Empty )' >Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active-sortby" : string.Empty : string.Empty  )">Default</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" class="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "active-sortby" : string.Empty : string.Empty ) ">Popularity</a></li>
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "active-sortby" :string.Empty :string.Empty )' >Price: low to high</a></li>
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow })' class='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "active-sortby" :string.Empty :string.Empty )' >Price: high to low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
                     <div class="widget widget-price">
@@ -77,7 +77,7 @@
                             <li class="product-item">
                                 <div class="product-thumb clearfix">
                                     <a href="#">
-                                        <img src="@product.ImageURL" alt="image">
+                                        <img src="@product.ImageURL" alt="@product.Name">
                                     </a>
                                     <span class="new">New</span>
                                 </div>

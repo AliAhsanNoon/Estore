@@ -49,9 +49,6 @@ namespace com.services
                     var sort = (SortByEnum)sortBy.Value;
                     switch (sort)
                     {
-                        case SortByEnum.Default:
-                            _products = _products.OrderByDescending(x => x.ID).ToList();
-                            break;
                         case SortByEnum.Popularity:
                             break;
                         case SortByEnum.PriceLowToHigh:
