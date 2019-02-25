@@ -1,7 +1,10 @@
-﻿@model com.web.ViewModels.ShopViewModel
+﻿@using com.web.ViewModels;
+
+@model com.web.ViewModels.ShopViewModel
+
 @{
     ViewBag.Title = "Index";
-}
+ }
 
 <!-- Page title -->
 <div class="page-title parallax parallax1">
@@ -43,7 +46,7 @@
                     <div class="widget widget-price">
                         <h5 class="widget-title">Filter by price</h5>
                         <div class="price-filter">
-                            <div id="slide-range"></div>
+                            <div id="price-slide-range"></div>
                             <p class="amount">
                                 Price: <input type="text" id="amount" disabled="">
                             </p>
@@ -70,34 +73,14 @@
                         Showing 1–12 of 56 Products
                     </p>
                 </div><!-- /.filte-shop -->
-                <div class="product-content product-threecolumn product-slidebar clearfix">
-                    <ul class="product style2 sd1">
-                        @foreach (var product in Model.Products)
-                         {
-                            <li class="product-item">
-                                <div class="product-thumb clearfix">
-                                    <a href="#">
-                                        <img src="@product.ImageURL" alt="@product.Name">
-                                    </a>
-                                    <span class="new">New</span>
-                                </div>
-                                <div class="product-info clearfix">
-                                    <span class="product-title">@product.Name</span>
-                                    <div class="price">
-                                        <ins>
-                                            <span class="amount">$@product.Price</span>
-                                        </ins>
-                                    </div>
-                                </div>
-                                <div class="add-to-cart text-center">
-                                    <a href="#">ADD TO CART</a>
-                                </div>
-                                <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                            </li>
-                         }
+                
+                @{ 
+                    var _Filter = new FilterProductsViewModel();
 
-                    </ul><!-- /.product -->
-                </div><!-- /.product-content -->
+                    _Filter.Products = Model.Products;
+
+                    Html.RenderPartial("FilterProducts", _Filter);
+                 }
                 <div class="product-pagination text-center clearfix">
                     <ul class="flat-pagination">
                         <li class="prev">
@@ -113,3 +96,17 @@
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section><!-- /.flat-row -->
+
+<script type="text/javascript">
+    var priceSlider = $('#price-slide-range').slider({
+        range : true,
+        min : 0,
+        max: @Model.MaxPrice,
+        values : [0, @Model.MaxPrice],
+        slide: function (event, ui) {
+            var _min = ui.values[0];
+            var _max = ui.values[1];
+            $("#amount").val("$" + _min + ".00" + _max + ".00")
+        }
+    });
+</script>

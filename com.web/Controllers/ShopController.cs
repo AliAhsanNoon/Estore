@@ -20,8 +20,17 @@ namespace com.web.Controllers
             return View(_model);
        }
 
-        public ActionResult CheckOut()
-        {
+       public ActionResult FilterProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+       {
+            FilterProductsViewModel _model = new FilterProductsViewModel();
+
+            _model.Products = ProductService.Instance.SearchProducts(searchTerm, minPrice, maxPrice, CategoryId, sortBy);
+
+            return PartialView(_model);
+       }
+
+       public ActionResult CheckOut()
+       {
             CheckOutViewModel viewModel = new CheckOutViewModel();
             var productCookie = Request.Cookies["ProductsCart"].Value;
             if(productCookie != null)
@@ -32,6 +41,6 @@ namespace com.web.Controllers
                 viewModel.vCartProductID = pId;
             }
             return View(viewModel);
-        }
+       }
     }
 }

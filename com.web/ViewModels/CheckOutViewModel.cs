@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace com.web.ViewModels
 {
+    public class FilterProductsViewModel
+    {
+        public List<Product> Products { get; set; }
+    }
     public class CheckOutViewModel
     {
         public List<Product> vCartProducts { get; set; }

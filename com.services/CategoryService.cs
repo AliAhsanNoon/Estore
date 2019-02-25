@@ -57,7 +57,7 @@ namespace com.services
             {
                 return context.Categories
                     .Where(x => x.isFeatured == true && x.ImageURL != null)
-                    .Take(3).ToList();
+                    .Take(4).ToList();
             }
         }
 

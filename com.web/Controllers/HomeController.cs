@@ -11,7 +11,6 @@ namespace com.web.Controllers
             var _model = new HomeViewModel
             {
                 FeaturedCategories = CategoryService.Instance.GetFeaturedCategories(),
-
             };
             return View(_model);
         }
