@@ -38,8 +38,11 @@
                         </h5>
                         <ul>
                             <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" style="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active-sortby" : string.Empty : string.Empty  )">Default</a></li>
+                            
                             <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" style="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "color: #f63440;" : string.Empty : string.Empty ) ">Popularity</a></li>
+                            
                             <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' style='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "color: #f63440;" :string.Empty :string.Empty )' >Price: low to high</a></li>
+                            
                             <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow })' style='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "color: #f63440;" :string.Empty :string.Empty )' >Price: high to low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
@@ -62,7 +65,6 @@
                              {
                                 <a href="@Url.Action("Index", "Shop", new { categoryID = item.ID })"> @item.Name </a>
                              }
-
                         </div>
                     </div><!-- /.widget -->
                 </div><!-- /.sidebar -->
@@ -73,14 +75,15 @@
                         Showing 1–12 of 56 Products
                     </p>
                 </div><!-- /.filte-shop -->
-                
-                @{ 
-                    var _Filter = new FilterProductsViewModel();
+                <div id="filterProduct">
+                    @{
+                        var _Filter = new FilterProductsViewModel();
 
-                    _Filter.Products = Model.Products;
+                        _Filter.Products = Model.Products;
 
-                    Html.RenderPartial("FilterProducts", _Filter);
-                 }
+                        Html.RenderPartial("FilterProducts", _Filter);
+                     }
+                </div>
                 <div class="product-pagination text-center clearfix">
                     <ul class="flat-pagination">
                         <li class="prev">
@@ -98,6 +101,7 @@
 </section><!-- /.flat-row -->
 
 <script type="text/javascript">
+
     var priceSlider = $('#price-slide-range').slider({
         range : true,
         min : 0,
@@ -106,7 +110,23 @@
         slide: function (event, ui) {
             var _min = ui.values[0];
             var _max = ui.values[1];
-            $("#amount").val("$" + _min + ".00" + _max + ".00")
+            $("#amount").val("$" + _min + ".00" + _max + ".00");
+            $.ajax({
+                url: '@Url.Action("FilterProducts","Shop")',
+                data:
+                {
+                    minPrice: priceSlider.slider("values", 0),
+                    maxPrice: priceSlider.slider("values", 1)
+                }
+            })
+            .done(function (response) {
+                $('#filterProduct').html(response);
+            })
+            .fail(function () {
+                alert('failed');
+            });
         }
     });
+
+    $("body").on("sl")
 </script>
