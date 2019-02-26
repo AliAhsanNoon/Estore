@@ -107,10 +107,19 @@
         min : 0,
         max: @Model.MaxPrice,
         values : [0, @Model.MaxPrice],
-        slide: function (event, ui) {
+        slide: function (event, ui)
+        {
             var _min = ui.values[0];
             var _max = ui.values[1];
+            
             $("#amount").val("$" + _min + ".00" + _max + ".00");
+
+            setTimeout(GetData, 2000);
+        }
+    });
+
+    function GetData() {
+
             $.ajax({
                 url: '@Url.Action("FilterProducts","Shop")',
                 data:
@@ -119,14 +128,14 @@
                     maxPrice: priceSlider.slider("values", 1)
                 }
             })
-            .done(function (response) {
+            .done(function (response)
+            {
                 $('#filterProduct').html(response);
             })
-            .fail(function () {
+            .fail(function ()
+            {
                 alert('failed');
             });
-        }
-    });
-
+    }
     $("body").on("sl")
 </script>
