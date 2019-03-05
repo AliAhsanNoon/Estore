@@ -6,7 +6,9 @@ namespace com.web.ViewModels
     public class FilterProductsViewModel
     {
         public List<Product> Products { get; set; }
+        public int? CategoryID { get; set; }
     }
+
     public class CheckOutViewModel
     {
         public List<Product> vCartProducts { get; set; }

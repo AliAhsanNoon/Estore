@@ -7,11 +7,14 @@ namespace com.web.Controllers
 {
     public class ShopController : Controller
     {
-       public ActionResult Index(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+       public ActionResult Index(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int? pageNo)
        {
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
             ShopViewModel _model = new ShopViewModel();
 
             _model.SortBy = sortBy;
+            _model.CategoryID = CategoryId;
             _model.SearchTerm = searchTerm;
             _model.MaxPrice = ProductService.Instance.GetMaxPrice();
             _model.FeaturedCategories = CategoryService.Instance.GetFeaturedCategories();

@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="page-title-heading">
-                    <h1 class="title">Slidebar Shop</h1>
+                    <h1 class="title">Shop</h1>
                 </div><!-- /.page-title-heading -->
             </div><!-- /.col-md-12 -->
         </div><!-- /.row -->
@@ -37,15 +37,33 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" style="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active-sortby" : string.Empty : string.Empty  )">Default</a></li>
-                            
-                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default } )" style="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "color: #f63440;" : string.Empty : string.Empty ) ">Popularity</a></li>
-                            
-                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh })' style='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "color: #f63440;" :string.Empty :string.Empty )' >Price: low to high</a></li>
-                            
-                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow })' style='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "color: #f63440;" :string.Empty :string.Empty )' >Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default, CategoryId = Model.CategoryID } )" style="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Default ? "active-sortby" : string.Empty : string.Empty  )">Default</a></li>
+
+                            <li><a href="@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.Default, CategoryId = Model.CategoryID } )" style="@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.Popularity ? "color: #f63440;" : string.Empty : string.Empty ) ">Popularity</a></li>
+
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceLowToHigh, CategoryId = Model.CategoryID })' style='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceLowToHigh ? "color: #f63440;" :string.Empty :string.Empty )'>Price: low to high</a></li>
+
+                            <li><a href='@Url.Action("Index","Shop", new { sortBy = (int) SortByEnum.PriceHighToLow, CategoryId = Model.CategoryID })' style='@( Model.SortBy.HasValue ? Model.SortBy.Value == (int) SortByEnum.PriceHighToLow ? "color: #f63440;" :string.Empty :string.Empty )'>Price: high to low</a></li>
                         </ul>
                     </div><!-- /.widget-sort-by -->
+
+                    <div class="widget widget_tag">
+                        <h5 class="widget-title">
+                            Featured  Categories
+                        </h5>
+                        <div class="tag-list">
+                            
+                            @foreach (var item in Model.FeaturedCategories)
+                             {
+                                <a href="@Url.Action("Index", "Shop", new { categoryID = item.ID })"
+                                   class=" @( Model.CategoryID.HasValue && Model.CategoryID.Value == item.ID ? "active" : string.Empty ) "
+                                > 
+                                    @item.Name 
+                                </a>
+                             }
+                        </div>
+                    </div><!-- /.widget -->
+
                     <div class="widget widget-price">
                         <h5 class="widget-title">Filter by price</h5>
                         <div class="price-filter">
@@ -55,18 +73,6 @@
                             </p>
                         </div>
                     </div>
-                    <div class="widget widget_tag">
-                        <h5 class="widget-title">
-                            Featured  Categories
-                        </h5>
-                        <div class="tag-list">
-                            <a href="#" class="active" >Featured Categories</a>
-                            @foreach (var item in Model.FeaturedCategories)
-                             {
-                                <a href="@Url.Action("Index", "Shop", new { categoryID = item.ID })"> @item.Name </a>
-                             }
-                        </div>
-                    </div><!-- /.widget -->
                 </div><!-- /.sidebar -->
             </div><!-- /.col-md-3 -->
             <div class="col-md-9">
@@ -124,6 +130,8 @@
                 url: '@Url.Action("FilterProducts","Shop")',
                 data:
                 {
+                    SortBy: "@Model.SortBy",
+                    CategoryId: "@Model.CategoryID",
                     minPrice: priceSlider.slider("values", 0),
                     maxPrice: priceSlider.slider("values", 1)
                 }
@@ -137,5 +145,5 @@
                 alert('failed');
             });
     }
-    $("body").on("sl")
+    
 </script>
