@@ -1,5 +1,14 @@
 ﻿@model com.web.ViewModels.FilterProductsViewModel
 
+<div class="filter-shop clearfix">
+    <p class="showing-product float-right">
+        Showing 
+        @( ( Model.Pager.CurrentPage - 1 ) * (Model.Pager.PageSize) + 1 ) – 
+        @( ( Model.Pager.CurrentPage - 1 ) * (Model.Pager.PageSize) + (Model.Products.Count < Model.Pager.PageSize ? Model.Products.Count : Model.Pager.PageSize) )
+        of @( Model.Pager.TotalItems ) Products
+    </p>
+</div><!-- /.filte-shop -->
+
 <div class="product-content product-threecolumn product-slidebar clearfix">
     <ul class="product style2 sd1">
         @foreach (var product in Model.Products)
@@ -25,6 +34,5 @@
                 <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
             </li>
          }
-
     </ul><!-- /.product -->
 </div><!-- /.product-content -->

@@ -7,6 +7,7 @@ namespace com.web.ViewModels
     {
         public List<Product> Products { get; set; }
         public int? CategoryID { get; set; }
+        public Pager Pager { get; set; }
     }
 
     public class CheckOutViewModel
@@ -17,6 +18,8 @@ namespace com.web.ViewModels
 
     public class ShopViewModel
     {
+        public Pager Pager { get; set; }
+
         public List<Product> Products { get; set; }
         public List<Category> FeaturedCategories { get; set; }
 

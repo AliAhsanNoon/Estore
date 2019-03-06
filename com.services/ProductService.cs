@@ -21,7 +21,7 @@ namespace com.services
 
         private ProductService() { }
 
-        public List<Product> SearchProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+        public List<Product> SearchProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int pageNo, int pageSize)
         {
             using (var _context = new CContext())
             {
@@ -62,7 +62,52 @@ namespace com.services
                             break;
                     }
                 }
-                return _products;
+                return _products.Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
+            }
+        }
+
+        public int SearchProductsCount(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy)
+        {
+            using (var _context = new CContext())
+            {
+                var _products = _context.Products.Include(x => x.Category).ToList();
+
+                if (CategoryId.HasValue)
+                {
+                    _products = _products.Where(x => x.Category.ID == CategoryId.Value).ToList();
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    _products = _products.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+                }
+                if (minPrice.HasValue)
+                {
+                    _products = _products.Where(x => x.Price >= minPrice.Value).ToList();
+                }
+                if (maxPrice.HasValue)
+                {
+                    _products = _products.Where(x => x.Price <= maxPrice.Value).ToList();
+                }
+
+                if (sortBy.HasValue)
+                {
+                    var sort = (SortByEnum)sortBy.Value;
+                    switch (sort)
+                    {
+                        case SortByEnum.Popularity:
+                            break;
+                        case SortByEnum.PriceLowToHigh:
+                            _products = _products.OrderBy(x => x.Price).ToList();
+                            break;
+                        case SortByEnum.PriceHighToLow:
+                            _products = _products.OrderByDescending(x => x.Price).ToList();
+                            break;
+                        default:
+                            _products = _products.OrderByDescending(x => x.ID).ToList();
+                            break;
+                    }
+                }
+                return _products.Count;
             }
         }
 

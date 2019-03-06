@@ -76,35 +76,48 @@
                 </div><!-- /.sidebar -->
             </div><!-- /.col-md-3 -->
             <div class="col-md-9">
-                <div class="filter-shop clearfix">
-                    <p class="showing-product float-right">
-                        Showing 1–12 of 56 Products
-                    </p>
-                </div><!-- /.filte-shop -->
+                
                 <div id="filterProduct">
                     @{
                         var _Filter = new FilterProductsViewModel();
 
                         _Filter.Products = Model.Products;
+                        _Filter.Pager = Model.Pager;
 
                         Html.RenderPartial("FilterProducts", _Filter);
                      }
                 </div>
                 <div class="product-pagination text-center clearfix">
+                    @if(Model.Pager != null)
+                     {
                     <ul class="flat-pagination">
-                        <li class="prev">
-                            <a href="#"><i class="fa fa-angle-left"></i></a>
-                        </li>
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#" title="">2</a></li>
+                        @if (Model.Pager.CurrentPage > 1)
+                         {
+                            <li class="prev">
+                                <a href="@Url.Action("Index", "Shop", new { pageNo = Model.Pager.CurrentPage - 1 })"><i class="fa fa-angle-left"></i></a>
+                            </li>
+                         }
+
+                        <li><a href="@Url.Action("Index", "Shop", new { pageNo = 1 })">1</a></li>
+
+                        @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                         {
+                            string activeClass = Model.Pager.CurrentPage == page ? "active" : string.Empty;
+                            <li class="@activeClass"><a href="@Url.Action("Index", "Shop", new { pageNo = page })">@page</a></li>
+                         }
+                        @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                         {
+                            <li><a href="@Url.Action("Index", "Shop", new { pageNo = Model.Pager.EndPage })"><i class="fa fa-angle-right"></i></a></li>
+                         }
                         <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+
                     </ul><!-- /.flat-pagination -->
+                     }
                 </div>
             </div><!-- /.col-md-9 -->
         </div><!-- /.row -->
     </div><!-- /.container -->
-</section><!-- /.flat-row -->
+</section><!-- /.flat-row if -->
 
 <script type="text/javascript">
 
