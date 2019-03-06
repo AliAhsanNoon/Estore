@@ -98,8 +98,6 @@
                             </li>
                          }
 
-                        <li><a href="@Url.Action("Index", "Shop", new { pageNo = 1 })">1</a></li>
-
                         @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
                          {
                             string activeClass = Model.Pager.CurrentPage == page ? "active" : string.Empty;
@@ -109,7 +107,6 @@
                          {
                             <li><a href="@Url.Action("Index", "Shop", new { pageNo = Model.Pager.EndPage })"><i class="fa fa-angle-right"></i></a></li>
                          }
-                        <li><a href="#">3</a></li>
 
                     </ul><!-- /.flat-pagination -->
                      }

@@ -28,6 +28,7 @@ namespace com.web.Controllers
 
        public ActionResult FilterProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int? pageNo)
        {
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
             int totalItem = ProductService.Instance.SearchProductsCount(searchTerm, minPrice, maxPrice, CategoryId, sortBy);
 
             FilterProductsViewModel _model = new FilterProductsViewModel();
