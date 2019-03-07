@@ -21,7 +21,7 @@ namespace com.web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("EstoreConnect", throwIfV1Schema: false)
         {
         }
 
