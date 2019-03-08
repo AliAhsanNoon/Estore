@@ -1,5 +1,6 @@
 ﻿@model List<com.Entities.Product>
 @{ ViewBag.Title = "ProductTable"; }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
 <div class=" m-2 modal-body">
     <div id="pMgm" class="title-section">
@@ -26,7 +27,7 @@
 
         <tbody>
             @foreach (var item in Model)
-             {
+            {
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
@@ -35,7 +36,7 @@
                         @if (item.Category != null)
                         {@item.Category.Name}
                     else
-                    { <text>-</text> }
+                    { <text>-</text>}
                     </td>
                     <td>
                         <button class="addToCart btn btn-sm" data-id="@item.ID" type="button"><i class="fa fa-shopping-cart"></i></button>
@@ -43,7 +44,7 @@
                         <button class="deleteProductBtn btn btn-sm" data-id="@item.ID" type="button"> <i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
-             }
+            }
         </tbody>
     </table>
 </div>
@@ -71,9 +72,9 @@
                 }, 1000);
             }).fail(function () { alert('Failed'); });
     });
-    
+
     $('body').on('click', '#saveproduct', function () {
-        if ($('#createProductForm').valid()) 
+        if ($('#createProductForm').valid())
         {
             $.ajax({
                 url: '@Url.Action("Create","Product")',

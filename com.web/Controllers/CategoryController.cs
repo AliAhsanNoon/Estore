@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace com.web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class CategoryController : Controller
     {
         [HttpGet]

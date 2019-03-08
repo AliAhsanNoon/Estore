@@ -1,1 +1,1 @@
-﻿namespace com.Entities {public class Category : BaseEntity {} }
+﻿namespace com.Entities { public class Category : BaseEntity {} }
