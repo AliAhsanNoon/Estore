@@ -832,5 +832,26 @@
       flatIsotope();
       flatCarouselOwl();
       flatContentBox();
+      myCart();
    	});
 })(jQuery);
+
+function myCart() {
+    var cartProducts;
+    var exCookie = $.cookie('ProductsCart');
+    if (exCookie != "" && exCookie != null && exCookie != undefined) {
+        cartProducts = exCookie.split('-');
+    }
+    else {
+        cartProducts = [];
+    }
+    var totalItemInCart = cartProducts.length;
+    if (totalItemInCart < 1) {
+        $('#my-cart').html("No Items in Shopping Cart");
+    }
+    else {
+
+        $('#my-cart').html(totalItemInCart + "  Items in Shopping Cart" );
+    }
+    $('#TotalItemInCart').html(totalItemInCart);
+}
