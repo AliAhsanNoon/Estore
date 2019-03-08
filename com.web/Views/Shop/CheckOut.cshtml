@@ -6,41 +6,7 @@
 <div id="ProductCart" class="title-section">
     <h2 class="title"> Product Cart </h2>
 </div>
-@if (Model != null)
-{
-    if (Model.vCartProducts != null && Model.vCartProductID.Count > 0)
-    {
-        <table class="table table-hover">
-            <thead class="alert-info">
-                <tr>
-                    <th>Product Name</th>
-                    <th>Qty</th>
-                    <th>Product Price</th>
-                    <th>Total Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.vCartProducts)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@Model.vCartProductID.Count(x => x.Equals(item.ID))</td>
-                        <td>@item.Price</td>
-                        <td>@(item.Price * Model.vCartProductID.Count(x => x.Equals(item.ID)))</td>
-                    </tr>
-                }
-                <tr>
-                    <td align="center" colspan="3"><h2 class="title">Total Amount</h2></td>
-                    <td>
-                        <h2 class="title">
-                            @( Model.vCartProducts.Sum(price => price.Price * Model.vCartProductID.Count(x => x.Equals(price.ID))) )
-                        </h2>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    }
-}
+
 
 @if (Model != null && Model.vCartProducts != null && Model.vCartProducts.Count > 0)
 {
@@ -72,7 +38,7 @@
                              } 
                             <li class="list-group-item d-flex justify-content-between">
                                 <h6>Total Bill (USD)</h6>
-                                <strong>$</strong>
+                                <strong>$ @( Model.vCartProducts.Sum( price => price.Price * Model.vCartProductID.Count( x=> x.Equals(price.ID)) ) )  </strong>
                             </li>
                         </ul>
                     </div>
