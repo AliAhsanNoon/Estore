@@ -1,4 +1,5 @@
 ﻿using com.Entities;
+using com.web.Models;
 using System.Collections.Generic;
 
 namespace com.web.ViewModels
@@ -14,6 +15,7 @@ namespace com.web.ViewModels
     {
         public List<Product> vCartProducts { get; set; }
         public List<int> vCartProductID { get; set; }
+        public ApplicationUser User { get; set; }
     }
 
     public class ShopViewModel

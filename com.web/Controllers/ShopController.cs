@@ -1,13 +1,43 @@
 ﻿using com.services;
 using com.web.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace com.web.Controllers
 {
     public class ShopController : Controller
     {
-       public ActionResult Index(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int? pageNo)
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public ActionResult Index(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int? pageNo)
        {
             pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
@@ -26,7 +56,7 @@ namespace com.web.Controllers
             return View(_model);
        }
 
-       public ActionResult FilterProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int? pageNo)
+        public ActionResult FilterProducts(string searchTerm, int? minPrice, int? maxPrice, int? CategoryId, int? sortBy, int? pageNo)
        {
             pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
             int totalItem = ProductService.Instance.SearchProductsCount(searchTerm, minPrice, maxPrice, CategoryId, sortBy);
@@ -39,7 +69,7 @@ namespace com.web.Controllers
             return PartialView(_model);
        }
 
-       public ActionResult CheckOut()
+        public ActionResult CheckOut()
        {
             CheckOutViewModel viewModel = new CheckOutViewModel();
 
@@ -51,6 +81,7 @@ namespace com.web.Controllers
 
                 viewModel.vCartProducts = ProductService.Instance.GetProducts(pId);
                 viewModel.vCartProductID = pId;
+                viewModel.User = UserManager.FindById(User.Identity.GetUserId());
             }
             return View(viewModel);
        }
