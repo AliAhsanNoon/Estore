@@ -1,7 +1,10 @@
-﻿using com.services;
+﻿using com.Entities;
+using com.services;
 using com.web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -70,7 +73,7 @@ namespace com.web.Controllers
        }
 
         public ActionResult CheckOut()
-       {
+        {
             CheckOutViewModel viewModel = new CheckOutViewModel();
 
             var productCookie = Request.Cookies["ProductsCart"].Value;
@@ -84,6 +87,43 @@ namespace com.web.Controllers
                 viewModel.User = UserManager.FindById(User.Identity.GetUserId());
             }
             return View(viewModel);
-       }
+        }
+
+        public JsonResult PlaceOrder(string productIds)
+        {
+            var result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+
+            if (!string.IsNullOrEmpty(productIds))
+            {
+                var productQty = productIds.Split('-').Select(x => int.Parse(x)).ToList();
+                var soldProduct = ProductService.Instance.GetProducts(productQty.Distinct().ToList());
+
+                var newOrder = new Order();
+
+                newOrder.Status = "Pending";
+                newOrder.OrderedAt = DateTime.Now;
+                newOrder.UserId = User.Identity.GetUserId();
+                newOrder.TotalAmount = soldProduct.Sum(x => x.Price * productQty.Where(pId => pId == x.ID).Count());
+
+                newOrder.OrderItems = new List<OrderItem>();
+                newOrder.OrderItems.AddRange(soldProduct
+                    .Select(x => new OrderItem
+                        {
+                            ProductID = x.ID,
+                            Quantity = productQty.Where(p => p == x.ID).Count()
+                        }
+                    ));
+
+                var rowsEffected = ShopService.Instance.SaveOrders(newOrder);
+                result.Data = new { Success = true, Rows = rowsEffected };
+            }
+            else
+            {
+                result.Data = new { Success = false, Rows = 0 };
+            }
+
+            return result;
+        }
     }
 }

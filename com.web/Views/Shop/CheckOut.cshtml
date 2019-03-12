@@ -62,7 +62,7 @@
                                 <input type="text" class="form-control" id="address" value="@Model.User.Address" readonly required="">
                             </div>
 
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                            <button class="btn btn-primary btn-lg btn-block" id="confirmOrder" type="button">Confirm Order</button>
                         </form>
                     </div>
                 </div>
@@ -76,3 +76,27 @@ else
         Product Cart is Empty
     </h2>
 }
+
+<script type="text/javascript">
+    $('#confirmOrder').click(function () {
+        $.ajax({
+            data: {
+                productIds: '@string.Join("-", Model.vCartProductID)'
+            },
+            url: "@Url.Action("PlaceOrder", "Shop")" 
+        }).done(function (response) {
+            if (response.Success) {
+                $.cookie('ProductsCart', '', { path: '/' });
+                myCart();
+                swal("Done", "Your Order has been placed successfully", "success").then((res) => {
+                    window.location = '@Url.Action("Index","Shop")';
+                });
+            }
+            else {
+                swal("Failed", "Please Try Again", "warning");
+            }
+            
+            
+            }).fail(function () { swal("Failed", "Please Try Again", "warning");})
+    });
+</script>
