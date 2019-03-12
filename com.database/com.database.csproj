@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201902191501388_AddedDataAnnotationsInProductEntity.Designer.cs">
       <DependentUpon>201902191501388_AddedDataAnnotationsInProductEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903120738061_AddedOrderModelInDb.cs" />
+    <Compile Include="Migrations\201903120738061_AddedOrderModelInDb.Designer.cs">
+      <DependentUpon>201903120738061_AddedOrderModelInDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -132,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902191501388_AddedDataAnnotationsInProductEntity.resx">
       <DependentUpon>201902191501388_AddedDataAnnotationsInProductEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903120738061_AddedOrderModelInDb.resx">
+      <DependentUpon>201903120738061_AddedOrderModelInDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
