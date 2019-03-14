@@ -21,7 +21,7 @@
                         </h4>
                         <ul class="list-group mb-3">
                             @foreach (var products in Model.vCartProducts)
-                             {
+                            {
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                     <div class="row">
                                         <div class="col-md-9">
@@ -29,16 +29,16 @@
                                             <small class="text-muted">@( products.Description.Length > 100 ? products.Description.Substring(0, 99) : products.Description)</small>
                                         </div>
                                         <div class="col-md-3 text-muted">
-                                            Qty - @( Model.vCartProductID.Count(id => id.Equals(products.ID)) ) 
+                                            Qty - @( Model.vCartProductID.Count(id => id.Equals(products.ID)) )
                                         </div>
                                     </div>
                                     <span class="text-muted"><b>Unit Price :</b> $@products.Price</span>
                                     <span class="text-muted"><b>Total Price :</b>$@( products.Price * Model.vCartProductID.Count(pId => pId.Equals(products.ID)))</span>
                                 </li>
-                             } 
+                            }
                             <li class="list-group-item d-flex justify-content-between">
                                 <h6>Total Bill (USD)</h6>
-                                <strong>$ @( Model.vCartProducts.Sum( price => price.Price * Model.vCartProductID.Count( x=> x.Equals(price.ID)) ) )  </strong>
+                                <strong>$ @( Model.vCartProducts.Sum(price => price.Price * Model.vCartProductID.Count(x => x.Equals(price.ID))) )  </strong>
                             </li>
                         </ul>
                     </div>
@@ -69,6 +69,27 @@
             </div><!-- /.row -->
         </div><!-- /.container -->
     </section>
+    <script type="text/javascript">
+        $('#confirmOrder').click(function () {
+            $.ajax({
+                data: {
+                    productIds: '@string.Join("-", Model.vCartProductID)'
+                },
+                url: "@Url.Action("PlaceOrder", "Shop")"
+            }).done(function (response) {
+                if (response.Success) {
+                    $.cookie('ProductsCart', '', { path: '/' });
+                    myCart();
+                    swal("Done", "Your Order has been placed successfully", "success").then((res) => {
+                        window.location = '@Url.Action("Index","Shop")';
+                    });
+                }
+                else {
+                    swal("Failed", "Please Try Again", "warning");
+                }
+            }).fail(function () { swal("Failed", "Please Try Again", "warning");})
+        });
+    </script>
 }
 else
 {
@@ -77,26 +98,3 @@ else
     </h2>
 }
 
-<script type="text/javascript">
-    $('#confirmOrder').click(function () {
-        $.ajax({
-            data: {
-                productIds: '@string.Join("-", Model.vCartProductID)'
-            },
-            url: "@Url.Action("PlaceOrder", "Shop")" 
-        }).done(function (response) {
-            if (response.Success) {
-                $.cookie('ProductsCart', '', { path: '/' });
-                myCart();
-                swal("Done", "Your Order has been placed successfully", "success").then((res) => {
-                    window.location = '@Url.Action("Index","Shop")';
-                });
-            }
-            else {
-                swal("Failed", "Please Try Again", "warning");
-            }
-            
-            
-            }).fail(function () { swal("Failed", "Please Try Again", "warning");})
-    });
-</script>

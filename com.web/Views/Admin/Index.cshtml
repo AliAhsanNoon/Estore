@@ -1,0 +1,39 @@
+﻿@model com.web.ViewModels.AdminViewModel
+
+@{ ViewBag.Title = "Admin Panel";}
+<div id="OrderContainer">
+    <table id="ProductTable" class=" m-2 table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>UserId</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Orders.Count > 0)
+            {
+                foreach (var item in Model.Orders)
+                {
+                    <tr>
+                        <td>@item.UserId</td>
+                        <td>@item.TotalAmount</td>
+                        <td>@item.Status</td>
+                        <td><a class="btn button" href="@Url.Action("Details","Admin", new { ID = item.ID })" data-id="@item.ID">Details</a></td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <div class="display-1">No Details Available</div>
+            }
+        </tbody>
+    </table>
+
+
+</div> 
+<div id="actionContainer">
+
+</div>

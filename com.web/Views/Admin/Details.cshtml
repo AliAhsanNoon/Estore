@@ -1,0 +1,114 @@
+﻿@model com.web.ViewModels.AdminDetailsViewModel
+@{
+    ViewBag.Title = "Customer Order Details";
+}
+
+<div id="ProductCart" class="title-section">
+    <h2 class="title"> Order Details </h2>
+</div>
+
+
+@if (Model != null && Model.Order != null)
+{
+
+    <section class="flat-row main-shop shop-slidebar">
+        <div class="container">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-4 order-md-2 mb-4">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Your cart</span>
+                        </h4>
+                        <ul class="list-group mb-3">
+                            @foreach (var orderItem in Model.Order.OrderItems)
+                            {
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h6 class="my-0">@orderItem.Product.Name</h6>
+                                            <small class="text-muted">@( orderItem.Product.Description.Length > 100 ? orderItem.Product.Description.Substring(0, 99) : orderItem.Product.Description)</small>
+                                        </div>
+                                        <div class="col-md-3 text-muted">
+                                            Qty - @orderItem.Quantity
+                                        </div>
+                                    </div>
+                                    <span class="text-muted"><b>Unit Price :</b> $@orderItem.Product.Price</span>
+                                    <span class="text-muted"><b>Total Price :</b>$@( orderItem.Product.Price * orderItem.Quantity )</span>
+                                </li>
+                            }
+                            <li class="list-group-item d-flex justify-content-between">
+                                <h6>Total Bill (USD)</h6>
+                                <strong>$ @Model.Order.TotalAmount  </strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8 order-md-1">
+                        <h4 class="mb-3">Billing address</h4>
+                        <form class="needs-validation" novalidate="">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName">Full Name</label>
+                                    <input type="text" class="form-control d-block" id="firstName" placeholder="Full Name" readonly value="@Model.OrderBy.Name" required="">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email">Email <span class="text-muted"></span></label>
+                                <input type="email" class="form-control" id="email" value="@Model.OrderBy.Email" readonly>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" id="address" value="@Model.OrderBy.Address" readonly required="">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address">Status</label>
+                                <select name="status" id="Ostatus">
+                                    @foreach (var status in Model.OrderStatus)
+                                     {
+                                        var isSelected = status == Model.Order.Status;
+                                        <option @( isSelected ? "selected" : string.Empty )> @status </option>
+                                     }
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+    <script>
+        $("#Ostatus").change(function () {
+        
+		$.ajax({
+			url: '@Url.Action("ChangeStatus", "Admin")',
+			data: {
+                status: $("#Ostatus").val(),
+				ID: '@Model.Order.ID'
+			}
+		})
+        .done(function (response) {
+        	if(response.Success)
+        	{
+        		swal("Done", "Your Order has been updated.", "success");
+        	}
+        	else {
+        		swal("Error", "Unable to update Order", "warning");
+        	}
+        })
+        .fail(function () {
+            swal("Error", "Unable to update Order", "warning");
+        });
+	});
+    </script>
+}
+else
+{
+    <div id="ProductCart" class="title-section">
+        <h2> Product Details Section is Empty </h2>
+    </div>
+
+}
+
+
